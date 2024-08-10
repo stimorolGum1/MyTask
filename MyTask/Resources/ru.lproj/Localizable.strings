@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  MyTask
+
+  Created by Danil on 08.08.2024.
+  
+*/
+// OnBoarding localization
+"onBoardingSlide1" = "Управляйте своими задачами";
+"onBoardingSlide2" = "Создайте распорядок дня";
+"onBoardingSlide3" = "Организуйте свои задачи";
+"onBoardingButton" = "Далее";

@@ -1,0 +1,14 @@
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - Carthage
+  - Pods
+line_length: 480
+function_body_length: 100
+function_parameter_count: 6
+disabled_rules:
+    - force_cast
+    - unused_closure_parameter
+    - identifier_name
+    - empty_enum_arguments
+    - trailing_whitespace
+    - redundant_optional_initialization
+    - for_where
