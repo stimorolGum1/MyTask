@@ -12,7 +12,7 @@ protocol OnBoardingViewControllerProtocol: AnyObject {
     func display(page: OnBoardingPage)
 }
 
-class OnBoardingViewController: UIViewController {
+final class OnBoardingViewController: UIViewController {
     var presenter: OnBoardingPresenterProtocol!
     
     private lazy var onBoardingImage: UIImageView = {
@@ -23,6 +23,7 @@ class OnBoardingViewController: UIViewController {
     private lazy var onBoardingLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 32)
+        label.textColor = .black
         return label
     }()
     
@@ -38,7 +39,7 @@ class OnBoardingViewController: UIViewController {
     
     private lazy var nextButton: UIButton = {
         let button = UIButton()
-        button.setTitle(Localization.onBoardingButton, for: .normal)
+        button.setTitle(Localization.nextButton, for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.5333333333, green: 0.4588235294, blue: 1, alpha: 1)
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(nextPage), for: .touchUpInside)
@@ -47,7 +48,7 @@ class OnBoardingViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
-        view.backgroundColor = .white // подумать над цветом
+        view.backgroundColor = .black // подумать над цветом
         setupViews()
         setupConstraints()
         presenter.showOnBoarding()

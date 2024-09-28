@@ -14,7 +14,7 @@ protocol OnBoardingPresenterProtocol: AnyObject {
     func getNextPage()
 }
 
-class OnBoardingPresenter {
+final class OnBoardingPresenter {
     private weak var view: OnBoardingViewControllerProtocol?
     private let model: OnBoardingModel
     private var currentPageIndex = 0

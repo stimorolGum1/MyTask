@@ -10,3 +10,7 @@
 "onBoardingSlide2" = "Создайте распорядок дня";
 "onBoardingSlide3" = "Организуйте свои задачи";
 "onBoardingButton" = "Далее";
+"TodoSearchBar" = "Найдите свою задачу...";
+// EmptyTaskViewLabel
+"EmptyTaskViewLabel" = "What do you want to do today?\nTap + to add your tasks";
+

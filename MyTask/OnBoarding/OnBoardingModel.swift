@@ -15,9 +15,9 @@ struct OnBoardingPage {
 
 struct OnBoardingModel {
     private var pages: [OnBoardingPage] = [
-        OnBoardingPage(imageName: UIImage(named: "onBoarding1"), text: Localization.onBoardingSlide1),
-        OnBoardingPage(imageName: UIImage(named: "onBoarding2"), text: Localization.onBoardingSlide2),
-        OnBoardingPage(imageName: UIImage(named: "onBoarding3"), text: Localization.onBoardingSlide3)
+        OnBoardingPage(imageName: UIImage(named: "onBoarding1"), text: Localization.slide1),
+        OnBoardingPage(imageName: UIImage(named: "onBoarding2"), text: Localization.slide2),
+        OnBoardingPage(imageName: UIImage(named: "onBoarding3"), text: Localization.slide3)
     ]
     
     func getPage(at index: Int) -> OnBoardingPage? {

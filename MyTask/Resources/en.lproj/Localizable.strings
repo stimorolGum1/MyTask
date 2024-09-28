@@ -10,3 +10,7 @@
 "onBoardingSlide2" = "Create daily routine";
 "onBoardingSlide3" = "Organaise your tasks";
 "onBoardingButton" = "Next";
+"TodoSearchBar" = "Search for your task...";
+// EmptyTaskViewLabel
+"EmptyTaskViewLabel" = "What do you want to do today?\nTap + to add your tasks";
+

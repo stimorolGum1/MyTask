@@ -7,16 +7,13 @@
 
 import Foundation
 enum Localization {
-    static let onBoardingSlide1 = Bundle.main.localizedString(forKey: "onBoardingSlide1",
-                                                              value: "",
-                                                              table: "Localization")
-    static let onBoardingSlide2 = Bundle.main.localizedString(forKey: "onBoardingSlide2",
-                                                              value: "",
-                                                              table: "Localization")
-    static let onBoardingSlide3 = Bundle.main.localizedString(forKey: "onBoardingSlide3",
-                                                              value: "",
-                                                              table: "Localization")
-    static let onBoardingButton = Bundle.main.localizedString(forKey: "onBoardingButton",
-                                                              value: "",
-                                                              table: "Localization")
+    // onBoarding
+    static let slide1 = NSLocalizedString("onBoardingSlide1", comment: "")
+    static let slide2 = NSLocalizedString("onBoardingSlide2", comment: "")
+    static let slide3 = NSLocalizedString("onBoardingSlide3", comment: "")
+    static let nextButton = NSLocalizedString("onBoardingButton", comment: "")
+    // ToDo
+    static let searchBarPlaceholder = NSLocalizedString("TodoSearchBar", comment: "")
+    // EmptyTaskView
+    static let emptyTaskViewLabel = NSLocalizedString("EmptyTaskViewLabel", comment: "")
 }
