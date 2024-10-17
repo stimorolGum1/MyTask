@@ -23,9 +23,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //        window?.makeKeyAndVisible()
         
         guard let windowScene = scene as? UIWindowScene else { return }
-        let router = DefaultRouter(rootTransition: EmptyTransition())
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = CustomTabBarController(router: router)
+        let router = DefaultRouter(rootTransition: EmptyTransition())
+        let tabBar = CustomTabBarController()
+        tabBar.viewControllers = [router.openToDoStartScreen(), router.openOnProgressStartScreen(), router.openCompleteStartScreen(), router.openSettingsStartScreen()]
+        window?.rootViewController = tabBar
         window?.makeKeyAndVisible()
     }
     

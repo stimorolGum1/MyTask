@@ -10,17 +10,18 @@ import SnapKit
 
 class SettingsViewCell: UITableViewCell {
     
-    lazy var settingLabel: UILabel = {
+    private lazy var settingLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .white
         return label
     }()
     
-    lazy var settingsSwitch: UISwitch = {
+    private lazy var settingsSwitch: UISwitch = {
         let switchView = UISwitch()
         return switchView
     }()
     
-    lazy var arrowImageView: UIImageView = {
+    private lazy var arrowImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "arrow-left")
         return imageView
@@ -30,7 +31,7 @@ class SettingsViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
         backgroundColor = .none
-        contentView.backgroundColor = .clear
+        contentView.backgroundColor = .black
         setupViews()
         setupConstraints()
     }
@@ -39,11 +40,11 @@ class SettingsViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupViews() {
+    private func setupViews() {
         contentView.addSubview(settingLabel)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         settingLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(16)
@@ -66,5 +67,10 @@ class SettingsViewCell: UITableViewCell {
                 make.trailing.equalToSuperview().offset(-16)
             }
         }
+    }
+    
+    func display(settingsLabel: String, isSwitchShow: Bool) {
+        self.settingLabel.text = settingsLabel
+        self.isSwitchShow(isShow: isSwitchShow)
     }
 }

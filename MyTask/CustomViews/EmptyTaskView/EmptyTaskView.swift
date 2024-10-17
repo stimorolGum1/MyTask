@@ -19,6 +19,7 @@ final class EmptyTaskView: UIView {
     private lazy var emptyTaskLabel: UILabel = {
         let label = UILabel()
         label.text = Localization.emptyTaskViewLabel
+        label.textColor = .white
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -43,7 +44,6 @@ final class EmptyTaskView: UIView {
     func setupConstraints() {
         emptyTaskImageView.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
-            
             make.height.width.equalTo(100)
         }
         emptyTaskLabel.snp.makeConstraints { make in

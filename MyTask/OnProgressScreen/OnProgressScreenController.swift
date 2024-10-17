@@ -19,7 +19,7 @@ final class OnProgressScreenViewController: UIViewController {
     
     private lazy var header: UILabel = {
         let label = UILabel()
-        label.text = "ToDo"
+        label.text = Localization.onProgressHeader
         label.font = UIFont(name: "HelveticaNeue-Bold", size: maxFontSize)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -29,6 +29,9 @@ final class OnProgressScreenViewController: UIViewController {
     private lazy var sortButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "filter"), for: .normal)
+        button.menu = priorityMenu
+        button.showsMenuAsPrimaryAction = true
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -47,17 +50,12 @@ final class OnProgressScreenViewController: UIViewController {
         return search
     }()
     
-    private lazy var addTaskButton: UIButton = {
-        let button = UIButton()
-        return button
-    }()
-    
     private lazy var emptyTaskView: UIView = {
         let view = EmptyTaskView()
         return view
     }()
     
-    private lazy var оnProgressTableView: UITableView = {
+    private lazy var onProgressTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
@@ -67,42 +65,55 @@ final class OnProgressScreenViewController: UIViewController {
         return tableView
     }()
     
+    private lazy var priorityMenu: UIMenu = {
+        let actionOne = UIAction(title: Localization.actionOne) { _ in
+            print("1")
+        }
+
+        let actionTwo = UIAction(title: Localization.actionTwo) { _ in
+            print("2")
+        }
+
+        let actionThree = UIAction(title: Localization.actionThree) { _ in
+            print("3")
+        }
+        let menu = UIMenu(title: Localization.menuTitle, children: [actionOne, actionTwo, actionThree])
+        return menu
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        оnProgressTableView.delegate = self
-        оnProgressTableView.dataSource = self
+        onProgressTableView.delegate = self
+        onProgressTableView.dataSource = self
         searchOnProgressBar.delegate = self
-        оnProgressTableView.register(TableViewCell.self, forCellReuseIdentifier: cellId)
+        onProgressTableView.register(TableViewCell.self, forCellReuseIdentifier: cellId)
         setupViews()
         setupConstraints()
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tapGesture.cancelsTouchesInView = false
-        view.addGestureRecognizer(tapGesture)
         if presenter.numberOfRowsInSection() == 0 {
-            searchOnProgressBar.removeFromSuperview()
+            onProgressTableView.removeFromSuperview()
         } else {
             emptyTaskView.removeFromSuperview()
         }
     }
     
-    func setupViews() {
+    private func setupViews() {
         view.addSubview(header)
         view.addSubview(sortButton)
         view.addSubview(searchOnProgressBar)
-        view.addSubview(оnProgressTableView)
+        view.addSubview(onProgressTableView)
         view.addSubview(emptyTaskView)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         header.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.leading.equalTo(20)
-            make.height.equalTo(40)
+            make.height.equalTo(50)
         }
         
         sortButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
             make.trailing.equalTo(-20)
             make.height.width.equalTo(30)
         }
@@ -113,7 +124,7 @@ final class OnProgressScreenViewController: UIViewController {
             make.trailing.equalTo(-15)
             make.height.equalTo(40)
         }
-        оnProgressTableView.snp.makeConstraints { make in
+        onProgressTableView.snp.makeConstraints { make in
             make.top.equalTo(searchOnProgressBar.snp.bottom).offset(10)
             make.leading.equalTo(15)
             make.trailing.equalTo(-15)
@@ -144,8 +155,8 @@ extension OnProgressScreenViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TableViewCell
-        cell.taskNameLabel.text = "task \(indexPath.row)"
-        cell.dateLabel.text = " 0\(indexPath.row).0\(indexPath.row).0\(indexPath.row)"
+        cell.display(taskNameLabel: "task \(indexPath.row)",
+                     dateLabel: " 0\(indexPath.row).0\(indexPath.row).0\(indexPath.row)")
         return cell
     }
 }
@@ -163,5 +174,14 @@ extension OnProgressScreenViewController: UISearchBarDelegate {
         if searchText != " " {
             print(searchText)
         }
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+            searchBar.showsCancelButton = true
+        }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        view.endEditing(true)
+        searchBar.showsCancelButton = false
     }
 }

@@ -8,11 +8,10 @@
 import Foundation
 
 struct SettingsModel {
-    let settings = ["Push notifications", "Storage", "Extras"]
-    let items = [[SettingsItem(name: "Enable notifications", switchIsEnabled: true)],
-                 [SettingsItem(name: "Wipe Storage", switchIsEnabled: false)],
-                 [SettingsItem(name: "Enable password", switchIsEnabled: true),
-                  SettingsItem(name: "About app", switchIsEnabled: false)]]
+    let settings = [Localization.push, Localization.storage, Localization.extras]
+    let items = [[SettingsItem(name: Localization.enableNotifications, switchIsEnabled: true)],
+                 [SettingsItem(name: Localization.wipeStorage, switchIsEnabled: false)],
+                 [SettingsItem(name: Localization.aboutApp, switchIsEnabled: false)]]
 }
 
 struct SettingsItem {

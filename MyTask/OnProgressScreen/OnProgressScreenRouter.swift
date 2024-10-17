@@ -34,6 +34,7 @@ extension OnProgressRoute where Self: Router {
                                             model: model,
                                             router: router)
         viewController.presenter = presenter
+        viewController.title = "OnProgress"
         router.root = viewController
         return viewController
     }

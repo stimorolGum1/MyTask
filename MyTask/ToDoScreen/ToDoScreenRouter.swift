@@ -22,6 +22,7 @@ extension ToDoRoute where Self: Router {
                                             model: model,
                                             router: router)
         viewController.presenter = presenter
+        
         router.root = viewController
         route(to: viewController, as: transition)
     }
@@ -34,6 +35,7 @@ extension ToDoRoute where Self: Router {
                                             model: model,
                                             router: router)
         viewController.presenter = presenter
+        viewController.title = "ToDo"
         router.root = viewController
         return viewController
     }

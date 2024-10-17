@@ -48,7 +48,7 @@ final class OnBoardingViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
-        view.backgroundColor = .black // подумать над цветом
+        view.backgroundColor = .black
         setupViews()
         setupConstraints()
         presenter.showOnBoarding()

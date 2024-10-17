@@ -34,6 +34,7 @@ extension CompleteRoute where Self: Router {
                                             model: model,
                                             router: router)
         viewController.presenter = presenter
+        viewController.title = "Complete"
         router.root = viewController
         return viewController
     }

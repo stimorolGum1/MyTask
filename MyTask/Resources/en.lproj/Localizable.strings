@@ -5,12 +5,46 @@
   Created by Danil on 08.08.2024.
   
 */
-// OnBoarding localization
-"onBoardingSlide1" = "Manage your tasks";
-"onBoardingSlide2" = "Create daily routine";
-"onBoardingSlide3" = "Organaise your tasks";
+// OnBoarding
+"slide1" = "Manage your tasks";
+"slide2" = "Create a daily routine";
+"slide3" = "Organize your tasks";
 "onBoardingButton" = "Next";
-"TodoSearchBar" = "Search for your task...";
-// EmptyTaskViewLabel
-"EmptyTaskViewLabel" = "What do you want to do today?\nTap + to add your tasks";
+// searchBar
+"searchBarPlaceholder" = "Find your task...";
+// emptyTaskViewLabel
+"emptyTaskViewLabel" = "No tasks yet\nTap + to add a task";
+// ToDoScreen
+"toDoHeader" = "To Do";
+// onProgress
+"onProgressHeader" = "In Progress";
+// complete
+"completeHeader" = "Done";
+// priorityMenu
+"menuTitle" = "Priority";
+"actionOne" = "High";
+"actionTwo" = "Medium";
+"actionThree" = "Low";
+// createTask
+"createTaskHeader" = "Create Task";
+"taskTitleLabel" = "Task Title";
+"taskDescriptionLabel" = "Task description";
+"taskDateLabel" = "Due Date";
+"taskPriorityLabel" = "Task Priority";
+"taskPriorityButton" = "Priority";
+"createTaskButton" = "Create Task";
+
+// settings
+"settingsHeader" = "Settings";
+// Push
+"push" = "Push - notifications";
+"enableNotifications" = "Enable Notifications";
+// Storage
+"storage" = "Storage";
+"wipeStorage" = "Clear Storage";
+// Extras
+"extras" = "Extras";
+"aboutApp" = "About the App";
+
+
 

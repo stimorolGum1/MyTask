@@ -5,12 +5,43 @@
   Created by Danil on 08.08.2024.
   
 */
-// OnBoarding localization
-"onBoardingSlide1" = "Управляйте своими задачами";
-"onBoardingSlide2" = "Создайте распорядок дня";
-"onBoardingSlide3" = "Организуйте свои задачи";
+// OnBoarding
+"slide1" = "Управляйте своими задачами";
+"slide2" = "Создайте распорядок дня";
+"slide3" = "Организуйте свои задачи";
 "onBoardingButton" = "Далее";
-"TodoSearchBar" = "Найдите свою задачу...";
-// EmptyTaskViewLabel
-"EmptyTaskViewLabel" = "What do you want to do today?\nTap + to add your tasks";
+// searchBar
+"searchBarPlaceholder" = "Найдите свою задачу...";
+// emptyTaskViewLabel
+"emptyTaskViewLabel" = "Пока задач нет\nНажмите на + чтобы добавить задачу";
+// ToDoScreen
+"toDoHeader" = "К выполнению";
+// onProgress
+"onProgressHeader" = "В работе";
+// complete
+"completeHeader" = "Готово";
+// priorityMenu
+"menuTitle" = "Приоритет";
+"actionOne" = "Высокий";
+"actionTwo" = "Средний";
+"actionThree" = "Низкий";
+// createTask
+"createTaskHeader" = "Создать задачу";
+"taskTitleLabel" = "Название задачи";
+"taskDescriptionLabel" = "Описание задачи";
+"taskDateLabel" = "Дата выполнения";
+"taskPriorityLabel" = "Приоритет задачи";
+"taskPriorityButton" = "Приоритет";
+"createTaskButton" = "Создать задачу";
 
+// settings
+"settingsHeader" = "Настройки";
+// Push
+"push" = "Push - уведомления";
+"enableNotifications" = "Включить уведомления";
+// Storage
+"storage" = "Хранилище";
+"wipeStorage" = "Очистить хранилище";
+// Extras
+"extras" = "Прочее";
+"aboutApp" = "О приложении";

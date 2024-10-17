@@ -9,7 +9,7 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
     
-    lazy var cellView: UIView = {
+    private lazy var cellView: UIView = {
         let view = UIView()
         view.backgroundColor = #colorLiteral(red: 0.2117647059, green: 0.2117647059, blue: 0.2117647059, alpha: 1)
         view.layer.cornerRadius = 15
@@ -17,7 +17,7 @@ class TableViewCell: UITableViewCell {
         return view
     }()
     
-    lazy var taskNameLabel: UILabel = {
+    private lazy var taskNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 25)
         label.textColor = .white
@@ -25,7 +25,7 @@ class TableViewCell: UITableViewCell {
         return label
     }()
     
-    lazy var dateLabel: UILabel = {
+    private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.text = "ToDo"
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 17)
@@ -47,13 +47,13 @@ class TableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupViews() {
+    private func setupViews() {
         contentView.addSubview(cellView)
         cellView.addSubview(taskNameLabel)
         cellView.addSubview(dateLabel)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         cellView.snp.makeConstraints { make in
             make.height.equalTo(72)
             make.leading.trailing.equalTo(0)
@@ -70,5 +70,10 @@ class TableViewCell: UITableViewCell {
             make.leading.equalTo(10)
             make.height.equalTo(20)
         }
+    }
+    
+    func display(taskNameLabel: String, dateLabel: String) {
+        self.taskNameLabel.text = taskNameLabel
+        self.dateLabel.text = dateLabel
     }
 }

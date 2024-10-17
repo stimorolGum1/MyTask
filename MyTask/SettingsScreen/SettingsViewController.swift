@@ -15,13 +15,13 @@ protocol SettingsViewControllerProtocol: AnyObject {
 class SettingsViewController: UIViewController {
     
     var presenter: SettingsPresenterProtocol!
-    let settingsCellId = "settingsCell"
+    private let settingsCellId = "settingsCell"
     private let maxFontSize: CGFloat = 42
     private let minFontSize: CGFloat = 21
     
     private lazy var header: UILabel = {
         let label = UILabel()
-        label.text = "Settings"
+        label.text = Localization.settingsHeader
         label.font = UIFont(name: "HelveticaNeue-Bold", size: maxFontSize)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -46,12 +46,12 @@ class SettingsViewController: UIViewController {
         setupConstraints()
     }
     
-    func setupViews() {
+    private func setupViews() {
         view.addSubview(header)
         view.addSubview(settingsTableView)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         header.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.leading.equalTo(20)
@@ -84,10 +84,17 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         return presenter.dataOfSection(section: section)
     }
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let header = view as? UITableViewHeaderFooterView {
+            header.textLabel?.textColor = UIColor.gray
+            header.textLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: settingsCellId, for: indexPath) as! SettingsViewCell
-        cell.settingLabel.text = presenter.dataOfRowInSection(section: indexPath.section, row: indexPath.row).name
-        cell.isSwitchShow(isShow: presenter.dataOfRowInSection(section: indexPath.section, row: indexPath.row).switchIsEnabled)
+        cell.display(settingsLabel: presenter.dataOfRowInSection(section: indexPath.section, row: indexPath.row).name,
+                     isSwitchShow: presenter.dataOfRowInSection(section: indexPath.section, row: indexPath.row).switchIsEnabled)
         return cell
     }
     

@@ -34,6 +34,7 @@ extension SettingsRoute where Self: Router {
                                             model: model,
                                             router: router)
         viewController.presenter = presenter
+        viewController.title = "Settings"
         router.root = viewController
         return viewController
     }

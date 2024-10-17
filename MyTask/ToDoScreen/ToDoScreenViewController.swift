@@ -19,7 +19,7 @@ final class ToDoScreenViewController: UIViewController {
     
     private lazy var header: UILabel = {
         let label = UILabel()
-        label.text = "ToDo"
+        label.text = Localization.toDoHeader
         label.font = UIFont(name: "HelveticaNeue-Bold", size: maxFontSize)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -31,6 +31,7 @@ final class ToDoScreenViewController: UIViewController {
         button.setImage(UIImage(named: "filter"), for: .normal)
         button.menu = priorityMenu
         button.showsMenuAsPrimaryAction = true
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -65,21 +66,18 @@ final class ToDoScreenViewController: UIViewController {
     }()
     
     private lazy var priorityMenu: UIMenu = {
-        let actionOne = UIAction(title: "High", image: UIImage(systemName: "star")) { _ in
-            // Perform action 1
+        let actionOne = UIAction(title: Localization.actionOne) { _ in
             print("1")
         }
-
-        let actionTwo = UIAction(title: "Middle", image: UIImage(systemName: "heart")) { _ in
-            // Perform action 2
+        
+        let actionTwo = UIAction(title: Localization.actionTwo) { _ in
             print("2")
         }
-
-        let actionThree = UIAction(title: "Low", image: UIImage(systemName: "bell")) { _ in
-            // Perform action 3
+        
+        let actionThree = UIAction(title: Localization.actionThree) { _ in
             print("3")
         }
-        let menu = UIMenu(title: "choose priority", children: [actionOne, actionTwo, actionThree])
+        let menu = UIMenu(title: Localization.menuTitle, children: [actionOne, actionTwo, actionThree])
         return menu
     }()
     
@@ -92,9 +90,6 @@ final class ToDoScreenViewController: UIViewController {
         toDoTableView.register(TableViewCell.self, forCellReuseIdentifier: cellId)
         setupViews()
         setupConstraints()
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tapGesture.cancelsTouchesInView = false
-        view.addGestureRecognizer(tapGesture)
         if presenter.numberOfRowsInSection() == 0 {
             toDoTableView.removeFromSuperview()
         } else {
@@ -102,7 +97,7 @@ final class ToDoScreenViewController: UIViewController {
         }
     }
     
-    func setupViews() {
+    private func setupViews() {
         view.addSubview(header)
         view.addSubview(sortButton)
         view.addSubview(searchTodoBar)
@@ -110,15 +105,15 @@ final class ToDoScreenViewController: UIViewController {
         view.addSubview(emptyTaskView)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         header.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.leading.equalTo(20)
-            make.height.equalTo(40)
+            make.height.equalTo(50)
         }
         
         sortButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
             make.trailing.equalTo(-20)
             make.height.width.equalTo(30)
         }
@@ -144,8 +139,8 @@ final class ToDoScreenViewController: UIViewController {
     }
     
     @objc private func dismissKeyboard() {
-            view.endEditing(true)
-        }
+        view.endEditing(true)
+    }
 }
 
 extension ToDoScreenViewController: ToDoScreenViewControllerProtocol { }
@@ -158,8 +153,8 @@ extension ToDoScreenViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TableViewCell
-        cell.taskNameLabel.text = "task \(indexPath.row)"
-        cell.dateLabel.text = " 0\(indexPath.row).0\(indexPath.row).0\(indexPath.row)"
+        cell.display(taskNameLabel: "task \(indexPath.row)",
+                     dateLabel: " 0\(indexPath.row).0\(indexPath.row).0\(indexPath.row)")
         return cell
     }
 }
@@ -177,5 +172,14 @@ extension ToDoScreenViewController: UISearchBarDelegate {
         if searchText != " " {
             print(searchText)
         }
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+            searchBar.showsCancelButton = true
+        }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        view.endEditing(true)
+        searchBar.showsCancelButton = false
     }
 }
