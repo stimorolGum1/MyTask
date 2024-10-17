@@ -35,6 +35,7 @@ extension SettingsRoute where Self: Router {
                                             router: router)
         viewController.presenter = presenter
         viewController.title = "Settings"
+        viewController.tabBarItem.image = UIImage(named: "settings")?.resizeImage()
         router.root = viewController
         return viewController
     }

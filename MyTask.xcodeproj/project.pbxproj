@@ -85,6 +85,7 @@
 		83D246F22C84A128009E8595 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D246F12C84A128009E8595 /* SettingsModel.swift */; };
 		83D246F42C84A281009E8595 /* SettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D246F32C84A281009E8595 /* SettingsRouter.swift */; };
 		83D246F62C84A299009E8595 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D246F52C84A299009E8595 /* StorageManager.swift */; };
+		83EA94432CC1013F00C47D3D /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EA94422CC1013200C47D3D /* UIImageExtensions.swift */; };
 		8C25F2EB935CBA107D482C73 /* Pods_MyTaskTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26755A271569E21AC7011CC7 /* Pods_MyTaskTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -170,6 +171,7 @@
 		83D246F12C84A128009E8595 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		83D246F32C84A281009E8595 /* SettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRouter.swift; sourceTree = "<group>"; };
 		83D246F52C84A299009E8595 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		83EA94422CC1013200C47D3D /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		9FC40699A8151967B8FE10A9 /* Pods_MyTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF3123D02F526B5167FFE91B /* Pods-MyTaskUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTaskUITests.release.xcconfig"; path = "Target Support Files/Pods-MyTaskUITests/Pods-MyTaskUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -306,6 +308,7 @@
 		830B3B1B2C568BF100B29E70 /* MyTask */ = {
 			isa = PBXGroup;
 			children = (
+				83EA94412CC1012B00C47D3D /* Extensions */,
 				8305351D2CAF94E900B8658E /* CustomViews */,
 				83A0FB8D2C8604CF00D18ED4 /* TableViewCell */,
 				838510682C69FB8300AA1C55 /* SettingsScreen */,
@@ -434,6 +437,14 @@
 				8333BBAF2C9C148400322853 /* SettingsViewCell.swift */,
 			);
 			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		83EA94412CC1012B00C47D3D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				83EA94422CC1013200C47D3D /* UIImageExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		F3CD97C4D8AD453A977F052E /* Pods */ = {
@@ -694,6 +705,7 @@
 				83D246F22C84A128009E8595 /* SettingsModel.swift in Sources */,
 				837F5D5F2C6907E7006CB68B /* CompleteScreenScreenRouter.swift in Sources */,
 				830BEB1E2CAA647700309701 /* CreateTaskRouter.swift in Sources */,
+				83EA94432CC1013F00C47D3D /* UIImageExtensions.swift in Sources */,
 				8394EC172C5E6269009C62CD /* Transition.swift in Sources */,
 				837F5D532C6907A5006CB68B /* OnProgressScreenPresenter.swift in Sources */,
 				8394EC142C5E6269009C62CD /* ModalTransition.swift in Sources */,
