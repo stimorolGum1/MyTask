@@ -13,6 +13,7 @@ protocol OnBoardingViewControllerProtocol: AnyObject {
 }
 
 final class OnBoardingViewController: UIViewController {
+    
     var presenter: OnBoardingPresenterProtocol!
     
     private lazy var onBoardingImage: UIImageView = {
@@ -23,7 +24,9 @@ final class OnBoardingViewController: UIViewController {
     private lazy var onBoardingLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 32)
-        label.textColor = .black
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.textColor = .white
         return label
     }()
     
@@ -40,6 +43,7 @@ final class OnBoardingViewController: UIViewController {
     private lazy var nextButton: UIButton = {
         let button = UIButton()
         button.setTitle(Localization.nextButton, for: .normal)
+        button.tintColor = .white
         button.backgroundColor = #colorLiteral(red: 0.5333333333, green: 0.4588235294, blue: 1, alpha: 1)
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(nextPage), for: .touchUpInside)
@@ -51,7 +55,7 @@ final class OnBoardingViewController: UIViewController {
         view.backgroundColor = .black
         setupViews()
         setupConstraints()
-        presenter.showOnBoarding()
+        presenter.showCurrentPage()
     }
     
     private func setupViews() {
@@ -69,6 +73,8 @@ final class OnBoardingViewController: UIViewController {
         }
         onBoardingLabel.snp.makeConstraints { make in
             make.top.equalTo(onBoardingImage.snp.bottom).offset(20)
+            make.leading.equalTo(10)
+            make.trailing.equalTo(-10)
             make.centerX.equalToSuperview()
         }
         pageControl.snp.makeConstraints { make in
@@ -86,7 +92,7 @@ final class OnBoardingViewController: UIViewController {
         }
     }
     
-    @objc private func nextPage() {
+    @objc private func nextPage() { // TODO: допилить переход
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             self?.onBoardingImage.alpha = 0
             self?.onBoardingLabel.alpha = 0

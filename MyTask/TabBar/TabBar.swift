@@ -7,15 +7,19 @@
 import UIKit
 import SnapKit
 
-class CustomTabBar: UITabBar {
+protocol CustomTabBarDelegate: AnyObject { }
+
+final class CustomTabBar: UITabBar {
     
-    let centerButton: UIButton = {
+    weak var customDelegate: CustomTabBarControllerProtocol?
+    
+    private lazy var centerButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .lightGray
         button.layer.cornerRadius = 35
         button.clipsToBounds = true
         button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.addTarget(CustomTabBar.self, action: #selector(centerButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(centerButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -45,7 +49,7 @@ class CustomTabBar: UITabBar {
     }
     
     @objc func centerButtonTapped() {
-        print("Center Button Tapped")
+        customDelegate?.openCreateTask()
     }
     
     override func layoutSubviews() {
@@ -99,4 +103,14 @@ class CustomTabBar: UITabBar {
         path.addLine(to: CGPoint(x: 0, y: frame.height))
         return path
     }
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if centerButton.frame.contains(point) {
+            return centerButton
+        } else {
+            return super.hitTest(point, with: event)
+        }
+    }
 }
+
+extension CustomTabBar: CustomTabBarDelegate { }

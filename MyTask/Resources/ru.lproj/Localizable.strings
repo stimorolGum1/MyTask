@@ -25,14 +25,20 @@
 "actionOne" = "Высокий";
 "actionTwo" = "Средний";
 "actionThree" = "Низкий";
-// createTask
+
+// createTask/viewTask
 "createTaskHeader" = "Создать задачу";
+"viewTaskHeader" = "Обзор задачи";
 "taskTitleLabel" = "Название задачи";
 "taskDescriptionLabel" = "Описание задачи";
 "taskDateLabel" = "Дата выполнения";
 "taskPriorityLabel" = "Приоритет задачи";
 "taskPriorityButton" = "Приоритет";
 "createTaskButton" = "Создать задачу";
+"editTaskButtonStartEdit" = "Изменить задачу";
+"editTaskButtonEndEdit" = "Завершить изменения";
+"deleteTaskButton" = "Удалить задачу";
+"saveTaskButton" = "Сохранить задачу";
 
 // settings
 "settingsHeader" = "Настройки";
@@ -45,3 +51,8 @@
 // Extras
 "extras" = "Прочее";
 "aboutApp" = "О приложении";
+
+// About
+"titleAppLabel" = "MyTask";
+"descriptionAppLabel" = "MyTask — это простое и удобное приложение для управления задачами на iOS, которое позволяет легко создавать, редактировать, удалять и перемещать задачи между тремя статусами: ToDo, In-Progress и Complete.";
+"authorLabel" = "Автор: Данил stimorolGum\nGithub: https://github.com/stimorolGum1\nСвязаться со мной:\nTelegram: @stimorol_gum";

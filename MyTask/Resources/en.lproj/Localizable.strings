@@ -15,24 +15,30 @@
 // emptyTaskViewLabel
 "emptyTaskViewLabel" = "No tasks yet\nTap + to add a task";
 // ToDoScreen
-"toDoHeader" = "To Do";
+"toDoHeader" = "ToDo";
 // onProgress
 "onProgressHeader" = "In Progress";
 // complete
-"completeHeader" = "Done";
+"completeHeader" = "Complete";
 // priorityMenu
 "menuTitle" = "Priority";
 "actionOne" = "High";
 "actionTwo" = "Medium";
 "actionThree" = "Low";
-// createTask
+
+// createTask/viewTask
 "createTaskHeader" = "Create Task";
+"viewTaskHeader" = "Task view";
 "taskTitleLabel" = "Task Title";
 "taskDescriptionLabel" = "Task description";
 "taskDateLabel" = "Due Date";
 "taskPriorityLabel" = "Task Priority";
 "taskPriorityButton" = "Priority";
 "createTaskButton" = "Create Task";
+"editTaskButtonEdit" = "Edit Task";
+"editTaskButtonEndEdit" = "End edit";
+"deleteTaskButton" = "Delete Task";
+"saveTaskButton" = "Save task";
 
 // settings
 "settingsHeader" = "Settings";
@@ -46,5 +52,7 @@
 "extras" = "Extras";
 "aboutApp" = "About the App";
 
-
-
+// About
+"titleAppLabel" = "MyTask";
+"descriptionAppLabel" = "MyTask is a simple and convenient task management application for iOS that allows you to easily create, edit, delete and move tasks between three statuses: ToDo, In-Progress and Complete.";
+"authorLabel" = "Author: Danil stimorolGum\nGithub: https://github.com/stimorolGum1\nContact me:\nTelegram: @stimorol_gum";

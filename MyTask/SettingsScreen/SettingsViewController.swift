@@ -8,11 +8,9 @@
 import UIKit
 import SnapKit
 
-protocol SettingsViewControllerProtocol: AnyObject {
-    
-}
+protocol SettingsViewControllerProtocol: AnyObject { }
 
-class SettingsViewController: UIViewController {
+final class SettingsViewController: UIViewController {
     
     var presenter: SettingsPresenterProtocol!
     private let settingsCellId = "settingsCell"
@@ -64,11 +62,13 @@ class SettingsViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(10)
         }
     }
+    
+    @objc private func didToggleSwitch(_ sender: UISwitch) {
+        presenter.enablePush()
+    }
 }
 
-extension SettingsViewController: SettingsViewControllerProtocol {
-    
-}
+extension SettingsViewController: SettingsViewControllerProtocol { }
 
 extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -95,11 +95,28 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: settingsCellId, for: indexPath) as! SettingsViewCell
         cell.display(settingsLabel: presenter.dataOfRowInSection(section: indexPath.section, row: indexPath.row).name,
                      isSwitchShow: presenter.dataOfRowInSection(section: indexPath.section, row: indexPath.row).switchIsEnabled)
+        if presenter.dataOfRowInSection(section: indexPath.section, row: indexPath.row).switchIsEnabled {
+            cell.settingsSwitch.addTarget(self, action: #selector(didToggleSwitch(_:)), for: .valueChanged)
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let items = presenter.dataOfRowInSection(section: indexPath.section, row: indexPath.row)
+        if !items.switchIsEnabled {
+            switch items.name {
+            case Localization.wipeStorage:
+                presenter.wipeStorage()
+            case Localization.aboutApp:
+                presenter.openAboutScreen()
+            default:
+                break
+            }
+        }
     }
 }
 

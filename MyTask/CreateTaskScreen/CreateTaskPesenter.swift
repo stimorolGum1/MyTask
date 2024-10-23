@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CreateTaskPesenterProtocol: AnyObject {
-    
+    func closeCreateTask()
 }
 
 class CreateTaskPesenter {
@@ -21,10 +21,11 @@ class CreateTaskPesenter {
         self.view = view
         self.model = model
         self.router = router
-        
     }
 }
 
 extension CreateTaskPesenter: CreateTaskPesenterProtocol {
-    
+    func closeCreateTask() {
+        router.close()
+    }
 }

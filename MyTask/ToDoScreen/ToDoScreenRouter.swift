@@ -35,7 +35,7 @@ extension ToDoRoute where Self: Router {
                                             model: model,
                                             router: router)
         viewController.presenter = presenter
-        viewController.title = "ToDo"
+        viewController.title = Localization.toDoHeader
         viewController.tabBarItem.image = UIImage(named: "todo")?.resizeImage()
         router.root = viewController
         return viewController

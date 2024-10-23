@@ -36,12 +36,12 @@ final class EmptyTaskView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupViews() {
+    private func setupViews() {
         addSubview(emptyTaskImageView)
         addSubview(emptyTaskLabel)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         emptyTaskImageView.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
             make.height.width.equalTo(100)

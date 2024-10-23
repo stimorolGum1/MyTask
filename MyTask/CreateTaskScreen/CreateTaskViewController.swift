@@ -8,15 +8,13 @@
 import UIKit
 import SnapKit
 
-protocol CreateTaskViewControllerProtocol: AnyObject {
-    
-}
+protocol CreateTaskViewControllerProtocol: AnyObject { }
 
 final class CreateTaskViewController: UIViewController {
     
+    var presenter: CreateTaskPesenterProtocol!
     private var heightConstraint: Constraint?
     
-    var presenter: CreateTaskPesenterProtocol!
     private lazy var header: UILabel = {
         let label = UILabel()
         label.text = Localization.createTaskHeader
@@ -32,6 +30,7 @@ final class CreateTaskViewController: UIViewController {
         button.backgroundColor = .gray
         button.tintColor = .black
         button.layer.cornerRadius = 15
+        button.addTarget(self, action: #selector(closeCreateTaskButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -112,6 +111,8 @@ final class CreateTaskViewController: UIViewController {
         let button = UIButton()
         button.layer.cornerRadius = 10
         button.backgroundColor = .gray
+        button.menu = priorityMenu
+        button.showsMenuAsPrimaryAction = true
         button.setTitle(Localization.taskPriorityButton, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -119,17 +120,14 @@ final class CreateTaskViewController: UIViewController {
     
     private lazy var priorityMenu: UIMenu = {
         let actionOne = UIAction(title: Localization.actionOne) { _ in
-            // Perform action 1
             print("1")
         }
 
         let actionTwo = UIAction(title: Localization.actionTwo) { _ in
-            // Perform action 2
             print("2")
         }
 
         let actionThree = UIAction(title: Localization.actionThree) { _ in
-            // Perform action 3
             print("3")
         }
         let menu = UIMenu(title: Localization.menuTitle, children: [actionOne, actionTwo, actionThree])
@@ -155,7 +153,7 @@ final class CreateTaskViewController: UIViewController {
         setupConstraints()
     }
     
-    @objc func hideKeyboard() {
+    @objc private func hideKeyboard() {
         view.endEditing(true)
     }
     
@@ -248,11 +246,14 @@ final class CreateTaskViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
         }
     }
-}
-
-extension CreateTaskViewController: CreateTaskViewControllerProtocol {
+    @objc private func closeCreateTaskButtonTapped() {
+        presenter.closeCreateTask()
+    }
     
 }
+
+extension CreateTaskViewController: CreateTaskViewControllerProtocol { }
+
 extension CreateTaskViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
             let size = textView.sizeThatFits(CGSize(width: textView.frame.width, height: CGFloat.greatestFiniteMagnitude))

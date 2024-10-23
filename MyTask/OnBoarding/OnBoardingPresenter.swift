@@ -8,7 +8,7 @@
 import Foundation
 
 protocol OnBoardingPresenterProtocol: AnyObject {
-    func showOnBoarding()
+    func showCurrentPage()
     func getCurrentPage() -> OnBoardingPage?
     func getCurrentPageIndex() -> Int
     func getNextPage()
@@ -19,23 +19,19 @@ final class OnBoardingPresenter {
     private let model: OnBoardingModel
     private var currentPageIndex = 0
     private let router: Routes
-    typealias Routes = Closable
+    typealias Routes = Closable & TabBarRoute
 
     init(view: OnBoardingViewControllerProtocol, model: OnBoardingModel, router: Routes) {
         self.view = view
         self.model = model
         self.router = router
     }
-
-    private func showCurrentPage() {
-        guard let page = getCurrentPage() else { return }
-        view?.display(page: page)
-    }
 }
 
 extension OnBoardingPresenter: OnBoardingPresenterProtocol {
-    func showOnBoarding() {
-        showCurrentPage()
+    func showCurrentPage() {
+        guard let page = getCurrentPage() else { return }
+        view?.display(page: page)
     }
 
     func getCurrentPage() -> OnBoardingPage? {
@@ -47,10 +43,11 @@ extension OnBoardingPresenter: OnBoardingPresenterProtocol {
     }
 
     func getNextPage() {
-        currentPageIndex += 1
-        if currentPageIndex >= model.getPageCount() {
-            print("Finish") // router.toMainScreen()
+        if currentPageIndex == 2 {
+            UserDefaults.standard.set(true, forKey: "isOnBoardingShown")
+            router.openTabBar()
         } else {
+            currentPageIndex += 1
             showCurrentPage()
         }
     }

@@ -8,6 +8,7 @@
 import Foundation
 
 protocol TaskViewScreenPresenterProtocol: AnyObject {
+    func closeTaskView()
 }
 
 class TaskViewScreenPresenter {
@@ -25,5 +26,7 @@ class TaskViewScreenPresenter {
 }
 
 extension TaskViewScreenPresenter: TaskViewScreenPresenterProtocol {
-    
+    func closeTaskView() {
+        router.close()
+    }
 }

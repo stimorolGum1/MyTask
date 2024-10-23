@@ -12,13 +12,16 @@ protocol SettingsPresenterProtocol: AnyObject {
     func dataOfSection(section: Int) -> String
     func numberAtRowInSection(section: Int) -> Int 
     func dataOfRowInSection(section: Int, row: Int) -> SettingsItem
+    func enablePush()
+    func wipeStorage()
+    func openAboutScreen()
 }
 
 class SettingsPresenter {
     private weak var view: SettingsViewControllerProtocol?
     private let model: SettingsModel
     private let router: Routes
-    typealias Routes = Closable
+    typealias Routes = Closable & AboutScreenRoute
     
     init(view: SettingsViewControllerProtocol?, model: SettingsModel, router: Routes) {
         self.view = view
@@ -42,5 +45,17 @@ extension SettingsPresenter: SettingsPresenterProtocol {
     
     func dataOfRowInSection(section: Int, row: Int) -> SettingsItem {
         return model.items[section][row]
+    }
+    
+    func enablePush() {
+        
+    }
+    
+    func wipeStorage() {
+        
+    }
+    
+    func openAboutScreen() {
+        router.openAboutScreen()
     }
 }

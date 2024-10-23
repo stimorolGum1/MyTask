@@ -34,7 +34,7 @@ extension CompleteRoute where Self: Router {
                                             model: model,
                                             router: router)
         viewController.presenter = presenter
-        viewController.title = "Complete"
+        viewController.title = Localization.completeHeader
         viewController.tabBarItem.image = UIImage(named: "complete")?.resizeImage()
         router.root = viewController
         return viewController

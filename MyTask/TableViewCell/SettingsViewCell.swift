@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SettingsViewCell: UITableViewCell {
+final class SettingsViewCell: UITableViewCell {
     
     private lazy var settingLabel: UILabel = {
         let label = UILabel()
@@ -16,7 +16,7 @@ class SettingsViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var settingsSwitch: UISwitch = {
+    lazy var settingsSwitch: UISwitch = {
         let switchView = UISwitch()
         return switchView
     }()

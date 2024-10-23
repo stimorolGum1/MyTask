@@ -8,19 +8,17 @@
 import UIKit
 import SnapKit
 
-protocol TaskViewScreenViewControllerProtocol: AnyObject {
-    
-}
+protocol TaskViewScreenViewControllerProtocol: AnyObject { }
 
-class TaskViewScreenViewController: UIViewController {
-    
-    private var heightConstraint: Constraint?
+final class TaskViewScreenViewController: UIViewController {
     
     var presenter: TaskViewScreenPresenterProtocol!
+    private var heightConstraint: Constraint?
+    private var isEdit: Bool = false
     
     private lazy var header: UILabel = {
         let label = UILabel()
-        label.text = "Task view"
+        label.text = Localization.viewTaskHeader
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 32)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -33,6 +31,7 @@ class TaskViewScreenViewController: UIViewController {
         button.backgroundColor = .gray
         button.tintColor = .black
         button.layer.cornerRadius = 15
+        button.addTarget(self, action: #selector(closeTaskViewButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -46,7 +45,7 @@ class TaskViewScreenViewController: UIViewController {
         return label
     }()
     
-    private lazy var taskTitleField: UITextView = {
+    private lazy var taskTitleTextView: UITextView = {
         let textView = UITextView()
         textView.layer.cornerRadius = 10
         textView.layer.borderWidth = 1.0
@@ -56,6 +55,7 @@ class TaskViewScreenViewController: UIViewController {
         textView.textColor = .white
         textView.backgroundColor = .black
         textView.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+        textView.isEditable = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
@@ -79,6 +79,7 @@ class TaskViewScreenViewController: UIViewController {
         textView.isScrollEnabled = false
         textView.textColor = .white
         textView.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+        textView.isEditable = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
@@ -97,6 +98,7 @@ class TaskViewScreenViewController: UIViewController {
         datePicker.datePickerMode = .dateAndTime
         datePicker.layer.cornerRadius = 10
         datePicker.layer.masksToBounds = true
+        datePicker.isUserInteractionEnabled = false
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
     }()
@@ -113,24 +115,24 @@ class TaskViewScreenViewController: UIViewController {
         let button = UIButton()
         button.layer.cornerRadius = 10
         button.backgroundColor = .gray
+        button.menu = priorityMenu
+        button.showsMenuAsPrimaryAction = true
         button.setTitle(Localization.taskPriorityButton, for: .normal)
+        button.isUserInteractionEnabled = false
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private lazy var priorityMenu: UIMenu = {
         let actionOne = UIAction(title: Localization.actionOne) { _ in
-            // Perform action 1
             print("1")
         }
         
         let actionTwo = UIAction(title: Localization.actionTwo) { _ in
-            // Perform action 2
             print("2")
         }
         
         let actionThree = UIAction(title: Localization.actionThree) { _ in
-            // Perform action 3
             print("3")
         }
         let menu = UIMenu(title: Localization.menuTitle, children: [actionOne, actionTwo, actionThree])
@@ -141,7 +143,8 @@ class TaskViewScreenViewController: UIViewController {
         let button = UIButton()
         button.layer.cornerRadius = 10
         button.backgroundColor = .blue
-        button.setTitle("Edit Task", for: .normal)
+        button.setTitle(Localization.editTaskButtonEdit, for: .normal)
+        button.addTarget(self, action: #selector(isEditEnable), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -150,7 +153,7 @@ class TaskViewScreenViewController: UIViewController {
         let button = UIButton()
         button.layer.cornerRadius = 10
         button.backgroundColor = .red
-        button.setTitle("Delete Task", for: .normal)
+        button.setTitle(Localization.deleteTaskButton, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -158,8 +161,9 @@ class TaskViewScreenViewController: UIViewController {
     private lazy var saveTaskButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 10
-        button.backgroundColor = .blue
-        button.setTitle("Save task", for: .normal)
+        button.backgroundColor = .gray
+        button.setTitle(Localization.saveTaskButton, for: .normal)
+        button.isUserInteractionEnabled = false
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -174,7 +178,7 @@ class TaskViewScreenViewController: UIViewController {
         setupConstraints()
     }
     
-    @objc func hideKeyboard() {
+    @objc private func hideKeyboard() {
         view.endEditing(true)
     }
     
@@ -182,7 +186,7 @@ class TaskViewScreenViewController: UIViewController {
         view.addSubview(header)
         view.addSubview(closeButton)
         view.addSubview(taskTitleLabel)
-        view.addSubview(taskTitleField)
+        view.addSubview(taskTitleTextView)
         view.addSubview(taskDescriptionLabel)
         view.addSubview(taskDescriptionTextView)
         view.addSubview(taskDateLabel)
@@ -214,7 +218,7 @@ class TaskViewScreenViewController: UIViewController {
             make.height.equalTo(15)
         }
         
-        taskTitleField.snp.makeConstraints { make in
+        taskTitleTextView.snp.makeConstraints { make in
             make.top.equalTo(taskTitleLabel.snp.bottom).offset(10)
             make.leading.equalTo(20)
             make.trailing.equalTo(-20)
@@ -222,7 +226,7 @@ class TaskViewScreenViewController: UIViewController {
         }
         
         taskDescriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(taskTitleField.snp.bottom).offset(20)
+            make.top.equalTo(taskTitleTextView.snp.bottom).offset(20)
             make.leading.equalTo(20)
             make.height.equalTo(15)
         }
@@ -282,11 +286,35 @@ class TaskViewScreenViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
         }
     }
+    
+    @objc private func closeTaskViewButtonTapped() {
+        presenter.closeTaskView()
+    }
+    
+    @objc private func isEditEnable() {
+        if isEdit == false {
+            editTaskButton.setTitle(Localization.editTaskButtonEndEdit, for: .normal)
+            saveTaskButton.backgroundColor = .blue
+            taskTitleTextView.isEditable = true
+            taskDescriptionTextView.isEditable = true
+            taskDatePicker.isUserInteractionEnabled = true
+            taskPriorityButton.isUserInteractionEnabled = true
+            saveTaskButton.isUserInteractionEnabled = true
+            isEdit = true
+        } else {
+            editTaskButton.setTitle(Localization.editTaskButtonEdit, for: .normal)
+            saveTaskButton.backgroundColor = .gray
+            taskTitleTextView.isEditable = false
+            taskDescriptionTextView.isEditable = false
+            taskDatePicker.isUserInteractionEnabled = false
+            taskPriorityButton.isUserInteractionEnabled = false
+            saveTaskButton.isUserInteractionEnabled = false
+            isEdit = false
+        }
+    }
 }
 
-extension TaskViewScreenViewController: TaskViewScreenViewControllerProtocol {
-    
-}
+extension TaskViewScreenViewController: TaskViewScreenViewControllerProtocol { }
 
 extension TaskViewScreenViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {

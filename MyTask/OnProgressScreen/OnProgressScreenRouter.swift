@@ -34,7 +34,7 @@ extension OnProgressRoute where Self: Router {
                                             model: model,
                                             router: router)
         viewController.presenter = presenter
-        viewController.title = "OnProgress"
+        viewController.title = Localization.onProgressHeader
         viewController.tabBarItem.image = UIImage(named: "onprogress")?.resizeImage()
         router.root = viewController
         return viewController

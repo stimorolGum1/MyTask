@@ -8,11 +8,24 @@
 import UIKit
 import Foundation
 
-class CustomTabBarController: UITabBarController {
+protocol CustomTabBarControllerProtocol: AnyObject {
+    func openCreateTask()
+}
+
+final class CustomTabBarController: UITabBarController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setValue(CustomTabBar(), forKey: "tabBar")
+    var presenter: CustomTabBarPresenterProtocol!
+    var customTabBar: CustomTabBarDelegate!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setValue(customTabBar, forKey: "tabBar")
+        viewControllers = presenter.prepareTabs()
+    }
+}
+
+extension CustomTabBarController: CustomTabBarControllerProtocol {
+    func openCreateTask() {
+        presenter.openCreateTask()
     }
 }
