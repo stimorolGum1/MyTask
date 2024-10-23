@@ -92,7 +92,12 @@ final class OnBoardingViewController: UIViewController {
         }
     }
     
-    @objc private func nextPage() { // TODO: допилить переход
+    @objc private func nextPage() {
+        if presenter.getCurrentPageIndex() == 2 {
+            presenter.getNextPage()
+            return
+        }
+        
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             self?.onBoardingImage.alpha = 0
             self?.onBoardingLabel.alpha = 0
