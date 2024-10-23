@@ -34,7 +34,7 @@ final class OnBoardingViewController: UIViewController {
         let pageControl = UIPageControl()
         pageControl.numberOfPages = 3
         pageControl.pageIndicatorTintColor = .gray
-        pageControl.currentPageIndicatorTintColor = #colorLiteral(red: 0.5333333333, green: 0.4588235294, blue: 1, alpha: 1)
+        pageControl.currentPageIndicatorTintColor = .blue
         pageControl.isUserInteractionEnabled = false
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         return pageControl
@@ -44,7 +44,7 @@ final class OnBoardingViewController: UIViewController {
         let button = UIButton()
         button.setTitle(Localization.nextButton, for: .normal)
         button.tintColor = .white
-        button.backgroundColor = #colorLiteral(red: 0.5333333333, green: 0.4588235294, blue: 1, alpha: 1)
+        button.backgroundColor = .blue
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(nextPage), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false

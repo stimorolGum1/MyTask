@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let router = DefaultRouter(rootTransition: EmptyTransition())
         let tabBar = router.openTabBarStartScreen()
         let onBoarding = router.openOnBoardingStartScreen()
-        if UserDefaults.standard.bool(forKey: "isOnBoardingShown") == true {
+        if UserDefaults.standard.bool(forKey: "isOnBoardingShown") == false {
             window?.rootViewController = tabBar
         } else {
             window?.rootViewController = onBoarding
