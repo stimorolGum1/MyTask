@@ -8,13 +8,21 @@
 import UIKit
 import SnapKit
 
-protocol TaskViewScreenViewControllerProtocol: AnyObject { }
+// MARK: - Protocol Definitions
+
+protocol TaskViewScreenViewControllerProtocol: AnyObject {}
+
+// MARK: - ViewController Implementation
 
 final class TaskViewScreenViewController: UIViewController {
     
+    // MARK: - Properties
+    
     var presenter: TaskViewScreenPresenterProtocol!
     private var heightConstraint: Constraint?
-    private var isEdit: Bool = false
+    private lazy var isEdit: Bool = false
+    private var priority: NSDecimalNumber?
+    private var status: NSDecimalNumber?
     
     private lazy var header: UILabel = {
         let label = UILabel()
@@ -124,18 +132,60 @@ final class TaskViewScreenViewController: UIViewController {
     }()
     
     private lazy var priorityMenu: UIMenu = {
-        let actionOne = UIAction(title: Localization.actionOne) { _ in
-            print("1")
+        let actionOne = UIAction(title: Localization.priorityOne) { [weak self] _ in
+            self?.priority = 1
+            self?.taskPriorityButton.setTitle(Localization.priorityOne, for: .normal)
         }
         
-        let actionTwo = UIAction(title: Localization.actionTwo) { _ in
-            print("2")
+        let actionTwo = UIAction(title: Localization.priorityTwo) { [weak self] _  in
+            self?.priority = 2
+            self?.taskPriorityButton.setTitle(Localization.priorityTwo, for: .normal)
         }
         
-        let actionThree = UIAction(title: Localization.actionThree) { _ in
-            print("3")
+        let actionThree = UIAction(title: Localization.priorityThree) { [weak self] _  in
+            self?.priority = 3
+            self?.taskPriorityButton.setTitle(Localization.priorityThree, for: .normal)
         }
-        let menu = UIMenu(title: Localization.menuTitle, children: [actionOne, actionTwo, actionThree])
+        let menu = UIMenu(title: Localization.priorityMenuTitle, children: [actionOne, actionTwo, actionThree])
+        return menu
+    }()
+    
+    private lazy var taskStatusLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Task status"
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var taskStatusButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 10
+        button.backgroundColor = .gray
+        button.menu = statusMenu
+        button.showsMenuAsPrimaryAction = true
+        button.setTitle(Localization.taskStatusButton, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private lazy var statusMenu: UIMenu = {
+        let actionOne = UIAction(title: Localization.toDo) { [weak self] _ in
+            self?.status = 1
+            self?.taskStatusButton.setTitle(Localization.toDo, for: .normal)
+        }
+        
+        let actionTwo = UIAction(title: Localization.onProgress) { [weak self] _ in
+            self?.status = 2
+            self?.taskStatusButton.setTitle(Localization.onProgress, for: .normal)
+        }
+        
+        let actionThree = UIAction(title: Localization.complete) { [weak self] _ in
+            self?.status = 3
+            self?.taskStatusButton.setTitle(Localization.complete, for: .normal)
+        }
+        
+        let menu = UIMenu(title: Localization.statusMenuTitle, children: [actionOne, actionTwo, actionThree])
         return menu
     }()
     
@@ -154,6 +204,7 @@ final class TaskViewScreenViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.backgroundColor = .red
         button.setTitle(Localization.deleteTaskButton, for: .normal)
+        button.addTarget(self, action: #selector(deleteTaskButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -164,38 +215,31 @@ final class TaskViewScreenViewController: UIViewController {
         button.backgroundColor = .gray
         button.setTitle(Localization.saveTaskButton, for: .normal)
         button.isUserInteractionEnabled = false
+        button.addTarget(self, action: #selector(updateTaskButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
-        taskDescriptionTextView.delegate = self
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-        view.addGestureRecognizer(tapGesture)
+        display()
         setupViews()
         setupConstraints()
     }
     
-    @objc private func hideKeyboard() {
-        view.endEditing(true)
-    }
+    // MARK: - Methods
     
     private func setupViews() {
-        view.addSubview(header)
-        view.addSubview(closeButton)
-        view.addSubview(taskTitleLabel)
-        view.addSubview(taskTitleTextView)
-        view.addSubview(taskDescriptionLabel)
-        view.addSubview(taskDescriptionTextView)
-        view.addSubview(taskDateLabel)
-        view.addSubview(taskDatePicker)
-        view.addSubview(taskPriorityLabel)
-        view.addSubview(taskPriorityButton)
-        view.addSubview(editTaskButton)
-        view.addSubview(deleteTaskButton)
-        view.addSubview(saveTaskButton)
+        view.backgroundColor = .black
+        taskDescriptionTextView.delegate = self
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
+        let views: [UIView] = [header, closeButton, taskTitleLabel, taskTitleTextView, taskDescriptionLabel, taskDescriptionTextView, taskDateLabel, taskDatePicker, taskPriorityLabel, taskPriorityButton, taskStatusLabel, taskStatusButton, editTaskButton, deleteTaskButton, saveTaskButton]
+        views.forEach { view.addSubview($0) }
+    }
+    
+    @objc private func hideKeyboard() {
+        view.endEditing(true)
     }
     
     private func setupConstraints() {
@@ -265,6 +309,21 @@ final class TaskViewScreenViewController: UIViewController {
             make.width.equalTo(view.snp.width).dividedBy(2).offset(-30)
             make.height.equalTo(40)
         }
+        
+        taskStatusLabel.snp.makeConstraints { make in
+            make.top.equalTo(taskPriorityLabel.snp.bottom).offset(20)
+            make.leading.equalTo(20)
+            make.width.equalTo(view.snp.width).dividedBy(2).offset(-30)
+            make.height.equalTo(40)
+        }
+        
+        taskStatusButton.snp.makeConstraints { make in
+            make.top.equalTo(taskPriorityLabel.snp.bottom).offset(20)
+            make.trailing.equalTo(-20)
+            make.width.equalTo(view.snp.width).dividedBy(2).offset(-30)
+            make.height.equalTo(40)
+        }
+        
         editTaskButton.snp.makeConstraints { make in
             make.bottom.equalTo(saveTaskButton.snp.top).offset(-20)
             make.leading.equalTo(20)
@@ -312,7 +371,48 @@ final class TaskViewScreenViewController: UIViewController {
             isEdit = false
         }
     }
+    
+    private func display() {
+        let data = presenter.getData()
+        taskTitleTextView.text = data.taskName
+        taskDescriptionTextView.text = data.taskDescription
+        taskDatePicker.date = data.taskDate!
+        priority = data.taskPriority
+        status = data.taskStatus
+        
+    }
+    
+    @objc private func deleteTaskButtonTapped() {
+        presenter.deleteTask { [weak self] status in
+            self?.showAlert(message: status)
+        }
+    }
+    
+    @objc private func updateTaskButtonTapped() {
+        if taskDescriptionLabel.text != "" &&
+            taskTitleLabel.text != "" &&
+            priority != nil &&
+            status != nil {
+            presenter.updateTask(taskDate: taskDatePicker.date,
+                                 taskDescription: taskDescriptionTextView.text,
+                                 taskName: taskTitleTextView.text,
+                                 taskPriority: priority,
+                                 taskStatus: status) { [weak self] status in
+                self?.showAlert(message: status)
+            }
+        } else {
+            self.showAlert(message: Localization.fillAll)
+        }
+    }
+    
+    private func showAlert( message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
 }
+
+// MARK: - Protocol Conformance
 
 extension TaskViewScreenViewController: TaskViewScreenViewControllerProtocol { }
 

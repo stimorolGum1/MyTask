@@ -10,6 +10,7 @@ import SnapKit
 
 final class EmptyTaskView: UIView {
     
+    // MARK: - UI Elements
     private lazy var emptyTaskImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "empty")
@@ -26,6 +27,7 @@ final class EmptyTaskView: UIView {
         return label
     }()
     
+    // MARK: - Initializers
     init() {
         super.init(frame: .zero)
         setupViews()
@@ -36,9 +38,11 @@ final class EmptyTaskView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Methods
     private func setupViews() {
-        addSubview(emptyTaskImageView)
-        addSubview(emptyTaskLabel)
+        [emptyTaskImageView, emptyTaskLabel].forEach {
+            addSubview($0)
+        }
     }
     
     private func setupConstraints() {

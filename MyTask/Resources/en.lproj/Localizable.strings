@@ -10,21 +10,33 @@
 "slide2" = "Create a daily routine";
 "slide3" = "Organize your tasks";
 "onBoardingButton" = "Next";
+
 // searchBar
 "searchBarPlaceholder" = "Find your task...";
+
 // emptyTaskViewLabel
 "emptyTaskViewLabel" = "No tasks yet\nTap + to add a task";
+
 // ToDoScreen
 "toDoHeader" = "ToDo";
+
 // onProgress
-"onProgressHeader" = "In Progress";
+"onProgressHeader" = "OnProgress";
+
 // complete
 "completeHeader" = "Complete";
+
 // priorityMenu
-"menuTitle" = "Priority";
-"actionOne" = "High";
-"actionTwo" = "Medium";
-"actionThree" = "Low";
+"priorityMenuTitle" = "Priority";
+"priorityOne" = "High";
+"priorityTwo" = "Medium";
+"priorityThree" = "Low";
+
+// statusMenu
+"statusMenuTitle" = "Status";
+"toDo" = "ToDo";
+"onProgress" = "On progress";
+"complete" = "Complete";
 
 // createTask/viewTask
 "createTaskHeader" = "Create Task";
@@ -34,11 +46,13 @@
 "taskDateLabel" = "Due Date";
 "taskPriorityLabel" = "Task Priority";
 "taskPriorityButton" = "Priority";
+"taskStatusButton" = "Status";
 "createTaskButton" = "Create Task";
 "editTaskButtonEdit" = "Edit Task";
 "editTaskButtonEndEdit" = "End edit";
 "deleteTaskButton" = "Delete Task";
 "saveTaskButton" = "Save task";
+"fillAll" = "Fill all fields";
 
 // settings
 "settingsHeader" = "Settings";
@@ -51,8 +65,18 @@
 // Extras
 "extras" = "Extras";
 "aboutApp" = "About the App";
+// alert
+"wipe" = "All your data will be wipe";
+"cancel" = "Cancel";
 
 // About
 "titleAppLabel" = "MyTask";
 "descriptionAppLabel" = "MyTask is a simple and convenient task management application for iOS that allows you to easily create, edit, delete and move tasks between three statuses: ToDo, In-Progress and Complete.";
 "authorLabel" = "Author: Danil stimorolGum\nGithub: https://github.com/stimorolGum1\nContact me:\nTelegram: @stimorol_gum";
+
+// StorageManagerStatus
+"taskCreate" = "Task create";
+"taskNotFound" = "Task not found";
+"taskUpdate" = "Task successfully updated";
+"taskNotChange" = "No changes detected";
+"deleteTask" = "Task delete";

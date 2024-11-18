@@ -23,10 +23,15 @@ enum Localization {
     // complete
     static let completeHeader = NSLocalizedString("completeHeader", comment: "")
     // priorityMenu
-    static let menuTitle = NSLocalizedString("menuTitle", comment: "")
-    static let actionOne = NSLocalizedString("actionOne", comment: "")
-    static let actionTwo = NSLocalizedString("actionTwo", comment: "")
-    static let actionThree = NSLocalizedString("actionThree", comment: "")
+    static let priorityMenuTitle = NSLocalizedString("priorityMenuTitle", comment: "")
+    static let priorityOne = NSLocalizedString("priorityOne", comment: "")
+    static let priorityTwo = NSLocalizedString("priorityTwo", comment: "")
+    static let priorityThree = NSLocalizedString("priorityThree", comment: "")
+    // statusMenu
+    static let statusMenuTitle = NSLocalizedString("statusMenuTitle", comment: "")
+    static let toDo = NSLocalizedString("toDo", comment: "")
+    static let onProgress = NSLocalizedString("onProgress", comment: "")
+    static let complete = NSLocalizedString("complete", comment: "")
     // createTask
     static let createTaskHeader = NSLocalizedString("createTaskHeader", comment: "")
     static let viewTaskHeader = NSLocalizedString("viewTaskHeader", comment: "")
@@ -35,11 +40,13 @@ enum Localization {
     static let taskDateLabel = NSLocalizedString("taskDateLabel", comment: "")
     static let taskPriorityLabel = NSLocalizedString("taskPriorityLabel", comment: "")
     static let taskPriorityButton = NSLocalizedString("taskPriorityButton", comment: "")
+    static let taskStatusButton = NSLocalizedString("taskStatusButton", comment: "")
     static let createTaskButton = NSLocalizedString("createTaskButton", comment: "")
     static let editTaskButtonEdit = NSLocalizedString("editTaskButtonEdit", comment: "")
     static let editTaskButtonEndEdit = NSLocalizedString("editTaskButtonEndEdit", comment: "")
     static let deleteTaskButton = NSLocalizedString("deleteTaskButton", comment: "")
     static let saveTaskButton = NSLocalizedString("saveTaskButton", comment: "")
+    static let fillAll = NSLocalizedString("fillAll", comment: "")
     // settings
     static let settingsHeader = NSLocalizedString("settingsHeader", comment: "")
     // Push
@@ -51,8 +58,17 @@ enum Localization {
     // Extras
     static let extras = NSLocalizedString("extras", comment: "")
     static let aboutApp = NSLocalizedString("aboutApp", comment: "")
+    // alert
+    static let wipe = NSLocalizedString("wipe", comment: "")
+    static let cancel = NSLocalizedString("cancel", comment: "")
     // About
     static let titleAppLabel = NSLocalizedString("titleAppLabel", comment: "")
     static let descriptionAppLabel = NSLocalizedString("descriptionAppLabel", comment: "")
     static let authorLabel = NSLocalizedString("authorLabel", comment: "")
+    // StorageManagerStatus
+    static let taskCreate = NSLocalizedString("taskCreate", comment: "")
+    static let taskNotFound = NSLocalizedString("taskNotFound", comment: "")
+    static let taskUpdate = NSLocalizedString("taskUpdate", comment: "")
+    static let taskNotChange = NSLocalizedString("taskNotChange", comment: "")
+    static let deleteTask = NSLocalizedString("deleteTask", comment: "")
 }

@@ -8,11 +8,19 @@
 import UIKit
 import SnapKit
 
-protocol AboutScreenViewControllerProtocol: AnyObject { }
+// MARK: - Protocol Definitions
+
+protocol AboutScreenViewControllerProtocol: AnyObject {}
+
+// MARK: - ViewController Implementation
 
 final class AboutScreenViewController: UIViewController {
     
+    // MARK: - Properties
+    
     var presenter: AboutScreenPresenterProtocol?
+    
+    // MARK: - UI Elements
     
     private lazy var closeButton: UIButton = {
         let button = UIButton()
@@ -59,16 +67,16 @@ final class AboutScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
         setupViews()
         setupConstraints()
     }
     
+    // MARK: - Methods
+    
     private func setupViews() {
-        view.addSubview(closeButton)
-        view.addSubview(titleAppLabel)
-        view.addSubview(descriptionAppLabel)
-        view.addSubview(authorLabel)
+        view.backgroundColor = .black
+        [closeButton, titleAppLabel, descriptionAppLabel, authorLabel].forEach { view.addSubview($0)
+        }
     }
     
     private func setupConstraints() {
@@ -103,5 +111,7 @@ final class AboutScreenViewController: UIViewController {
         presenter?.closeTaskView()
     }
 }
+
+// MARK: - Protocol Conformance
 
 extension AboutScreenViewController: AboutScreenViewControllerProtocol { }

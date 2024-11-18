@@ -8,14 +8,22 @@
 import UIKit
 import SnapKit
 
-protocol SettingsViewControllerProtocol: AnyObject { }
+// MARK: - Protocol Definitions
+
+protocol SettingsViewControllerProtocol: AnyObject {}
+
+// MARK: - ViewController Implementation
 
 final class SettingsViewController: UIViewController {
+    
+    // MARK: - Properties
     
     var presenter: SettingsPresenterProtocol!
     private let settingsCellId = "settingsCell"
     private let maxFontSize: CGFloat = 42
     private let minFontSize: CGFloat = 21
+    
+    // MARK: - UI Elements
     
     private lazy var header: UILabel = {
         let label = UILabel()
@@ -31,22 +39,26 @@ final class SettingsViewController: UIViewController {
         tableView.backgroundColor = .black
         tableView.bounces = false
         tableView.separatorStyle = .none
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
-        view.backgroundColor = .black
-        settingsTableView.delegate = self
-        settingsTableView.dataSource = self
+        super.viewDidLoad()
         settingsTableView.register(SettingsViewCell.self, forCellReuseIdentifier: settingsCellId)
         setupViews()
         setupConstraints()
     }
     
+    // MARK: - Methods
+    
     private func setupViews() {
-        view.addSubview(header)
-        view.addSubview(settingsTableView)
+        view.backgroundColor = .black
+        [header, settingsTableView].forEach { view.addSubview($0) }
     }
     
     private func setupConstraints() {
@@ -66,9 +78,20 @@ final class SettingsViewController: UIViewController {
     @objc private func didToggleSwitch(_ sender: UISwitch) {
         presenter.enablePush()
     }
+    
+    private func showAlert() {
+        let alert = UIAlertController(title: nil, message: Localization.wipe, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+            self?.presenter.wipeStorage()
+        }))
+        alert.addAction(UIAlertAction(title: Localization.cancel, style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
 }
 
-extension SettingsViewController: SettingsViewControllerProtocol { }
+// MARK: - Protocol Conformance
+
+extension SettingsViewController: SettingsViewControllerProtocol {}
 
 extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -110,7 +133,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         if !items.switchIsEnabled {
             switch items.name {
             case Localization.wipeStorage:
-                presenter.wipeStorage()
+                showAlert()
             case Localization.aboutApp:
                 presenter.openAboutScreen()
             default:

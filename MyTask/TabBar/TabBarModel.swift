@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+// MARK: - CustomTabBarModel
+
 struct CustomTabBarModel {
     var items: [UIViewController] = []
 }

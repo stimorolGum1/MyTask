@@ -8,25 +8,18 @@
 import Foundation
 import UIKit
 
+// MARK: - ToDoRoute Protocol
+
 protocol OnProgressRoute {
-    func openOnProgress()
-    func openOnProgressStartScreen() -> UIViewController
+    func openOnProgress() -> UIViewController
 }
 
+// MARK: - Default implementation of ToDoRoute
+
 extension OnProgressRoute where Self: Router {
-    private func openOnProgress(with transition: Transition) {
-        let router = DefaultRouter(rootTransition: transition)
-        let viewController = OnProgressScreenViewController()
-        let model = OnProgressScreenModel()
-        let presenter = OnProgressScreenPresenter(view: viewController,
-                                            model: model,
-                                            router: router)
-        viewController.presenter = presenter
-        router.root = viewController
-        route(to: viewController, as: transition)
-    }
     
-    func openOnProgressStartScreen() -> UIViewController {
+    // MARK: - Open ToDo with Transition
+    func openOnProgress() -> UIViewController {
         let router = DefaultRouter(rootTransition: EmptyTransition())
         let viewController = OnProgressScreenViewController()
         let model = OnProgressScreenModel()
@@ -38,10 +31,6 @@ extension OnProgressRoute where Self: Router {
         viewController.tabBarItem.image = UIImage(named: "onprogress")?.resizeImage()
         router.root = viewController
         return viewController
-    }
-    
-    func openOnProgress() {
-        openOnProgress(with: AnimatedTransition(animatedTransition: FadeAnimatedTransitioning()))
     }
 }
 

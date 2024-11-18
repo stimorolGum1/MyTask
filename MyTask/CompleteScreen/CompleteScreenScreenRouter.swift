@@ -8,25 +8,18 @@
 import Foundation
 import UIKit
 
+// MARK: - ToDoRoute Protocol
+
 protocol CompleteRoute {
-    func openComplete()
-    func openCompleteStartScreen() -> UIViewController
+    func openComplete() -> UIViewController
 }
 
+// MARK: - Default implementation of ToDoRoute
+
 extension CompleteRoute where Self: Router {
-    private func openComplete(with transition: Transition) {
-        let router = DefaultRouter(rootTransition: transition)
-        let viewController = CompleteScreenViewController()
-        let model = CompleteScreenModel()
-        let presenter = CompleteScreenPresenter(view: viewController,
-                                            model: model,
-                                            router: router)
-        viewController.presenter = presenter
-        router.root = viewController
-        route(to: viewController, as: transition)
-    }
     
-    func openCompleteStartScreen() -> UIViewController {
+    // MARK: - Open ToDo with Transition
+    func openComplete() -> UIViewController {
         let router = DefaultRouter(rootTransition: EmptyTransition())
         let viewController = CompleteScreenViewController()
         let model = CompleteScreenModel()
@@ -38,10 +31,6 @@ extension CompleteRoute where Self: Router {
         viewController.tabBarItem.image = UIImage(named: "complete")?.resizeImage()
         router.root = viewController
         return viewController
-    }
-    
-    func openComplete() {
-        openComplete(with: AnimatedTransition(animatedTransition: FadeAnimatedTransitioning()))
     }
 }
 

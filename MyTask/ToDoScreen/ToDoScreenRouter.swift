@@ -8,26 +8,18 @@
 import Foundation
 import UIKit
 
+// MARK: - ToDoRoute Protocol
+
 protocol ToDoRoute {
-    func openToDo()
-    func openToDoStartScreen() -> UIViewController
+    func openToDo() -> UIViewController
 }
 
+// MARK: - Default implementation of ToDoRoute
+
 extension ToDoRoute where Self: Router {
-    private func openToDo(with transition: Transition) {
-        let router = DefaultRouter(rootTransition: transition)
-        let viewController = ToDoScreenViewController()
-        let model = ToDoScreenModel()
-        let presenter = ToDoScreenPresenter(view: viewController,
-                                            model: model,
-                                            router: router)
-        viewController.presenter = presenter
-        
-        router.root = viewController
-        route(to: viewController, as: transition)
-    }
-    
-    func openToDoStartScreen() -> UIViewController {
+
+    // MARK: - Open ToDo with Transition
+    func openToDo() -> UIViewController {
         let router = DefaultRouter(rootTransition: EmptyTransition())
         let viewController = ToDoScreenViewController()
         let model = ToDoScreenModel()
@@ -39,10 +31,6 @@ extension ToDoRoute where Self: Router {
         viewController.tabBarItem.image = UIImage(named: "todo")?.resizeImage()
         router.root = viewController
         return viewController
-    }
-    
-    func openToDo() {
-        openToDo(with: AnimatedTransition(animatedTransition: FadeAnimatedTransitioning()))
     }
 }
 

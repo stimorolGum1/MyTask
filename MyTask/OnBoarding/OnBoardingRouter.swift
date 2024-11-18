@@ -8,24 +8,15 @@
 import Foundation
 import UIKit
 
+// MARK: - ToDoRoute Protocol
+
 protocol OnBoardingRoute {
-    func openOnBoarding()
     func openOnBoardingStartScreen() -> UIViewController
 }
 
+// MARK: - Default implementation of ToDoRoute
+
 extension OnBoardingRoute where Self: Router {
-    private func openOnBoarding(with transition: Transition) {
-        let router = DefaultRouter(rootTransition: transition)
-        let viewController = OnBoardingViewController()
-        let model = OnBoardingModel()
-        let presenter = OnBoardingPresenter(view: viewController,
-                                            model: model,
-                                            router: router)
-        viewController.presenter = presenter
-        router.root = viewController
-        route(to: viewController, as: transition)
-    }
-    
     func openOnBoardingStartScreen() -> UIViewController {
         let router = DefaultRouter(rootTransition: EmptyTransition())
         let viewController = OnBoardingViewController()
@@ -36,10 +27,6 @@ extension OnBoardingRoute where Self: Router {
         viewController.presenter = presenter
         router.root = viewController
         return viewController
-    }
-    
-    func openOnBoarding() {
-        openOnBoarding(with: AnimatedTransition(animatedTransition: FadeAnimatedTransitioning()))
     }
 }
 

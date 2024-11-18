@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - Presenter Protocol
+
 protocol SettingsPresenterProtocol: AnyObject {
     func numberOfSection() -> Int
     func dataOfSection(section: Int) -> String
@@ -17,11 +19,18 @@ protocol SettingsPresenterProtocol: AnyObject {
     func openAboutScreen()
 }
 
+// MARK: - Presenter Implementation
+
 class SettingsPresenter {
+    
+    // MARK: - Properties
+    
     private weak var view: SettingsViewControllerProtocol?
     private let model: SettingsModel
     private let router: Routes
     typealias Routes = Closable & AboutScreenRoute
+    
+    // MARK: - Initializer
     
     init(view: SettingsViewControllerProtocol?, model: SettingsModel, router: Routes) {
         self.view = view
@@ -29,6 +38,8 @@ class SettingsPresenter {
         self.router = router
     }
 }
+
+// MARK: - SettingsPresenterProtocol
 
 extension SettingsPresenter: SettingsPresenterProtocol {
     func numberOfSection() -> Int {
@@ -48,11 +59,11 @@ extension SettingsPresenter: SettingsPresenterProtocol {
     }
     
     func enablePush() {
-        
+        // in progress
     }
     
     func wipeStorage() {
-        
+        StorageManager.shared.wipeStorage()
     }
     
     func openAboutScreen() {

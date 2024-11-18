@@ -21,10 +21,16 @@
 // complete
 "completeHeader" = "Готово";
 // priorityMenu
-"menuTitle" = "Приоритет";
-"actionOne" = "Высокий";
-"actionTwo" = "Средний";
-"actionThree" = "Низкий";
+"priorityMenuTitle" = "Приоритет";
+"priorityOne" = "Высокий";
+"priorityTwo" = "Средний";
+"priorityThree" = "Низкий";
+
+// statusMenu
+"statusMenuTitle" = "Статус";
+"toDo" = "К выполнению";
+"onProgress" = "В работе";
+"complete" = "Готово";
 
 // createTask/viewTask
 "createTaskHeader" = "Создать задачу";
@@ -34,11 +40,13 @@
 "taskDateLabel" = "Дата выполнения";
 "taskPriorityLabel" = "Приоритет задачи";
 "taskPriorityButton" = "Приоритет";
+"taskStatusButton" = "Статус";
 "createTaskButton" = "Создать задачу";
 "editTaskButtonStartEdit" = "Изменить задачу";
 "editTaskButtonEndEdit" = "Завершить изменения";
 "deleteTaskButton" = "Удалить задачу";
 "saveTaskButton" = "Сохранить задачу";
+"fillAll" = "Заполните все поля";
 
 // settings
 "settingsHeader" = "Настройки";
@@ -51,8 +59,18 @@
 // Extras
 "extras" = "Прочее";
 "aboutApp" = "О приложении";
+//alert
+"wipe" = "Все ваши данные будут удалены";
+"cancel" = "Отмена";
 
 // About
 "titleAppLabel" = "MyTask";
-"descriptionAppLabel" = "MyTask — это простое и удобное приложение для управления задачами на iOS, которое позволяет легко создавать, редактировать, удалять и перемещать задачи между тремя статусами: ToDo, In-Progress и Complete.";
+"descriptionAppLabel" = "MyTask — это простое и удобное приложение для управления задачами на iOS, которое позволяет легко создавать, редактировать, удалять и перемещать задачи между тремя статусами: К выполнению, В работе и Готово.";
 "authorLabel" = "Автор: Данил stimorolGum\nGithub: https://github.com/stimorolGum1\nСвязаться со мной:\nTelegram: @stimorol_gum";
+
+// StorageManagerStatus
+"taskCreate" = "Задача создана";
+"taskNotFound" = "Задача не найдена";
+"taskUpdate" = "Задача успешно обновлена";
+"taskNotChange" = "Изменений не обнаружено";
+"deleteTask" = "Задача удалена";

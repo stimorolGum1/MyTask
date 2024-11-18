@@ -9,24 +9,11 @@ import Foundation
 import UIKit
 
 protocol SettingsRoute {
-    func openSettings()
-    func openSettingsStartScreen() -> UIViewController
+    func openSettings() -> UIViewController
 }
 
 extension SettingsRoute where Self: Router {
-    private func openSettings(with transition: Transition) {
-        let router = DefaultRouter(rootTransition: transition)
-        let viewController = SettingsViewController()
-        let model = SettingsModel()
-        let presenter = SettingsPresenter(view: viewController,
-                                            model: model,
-                                            router: router)
-        viewController.presenter = presenter
-        router.root = viewController
-        route(to: viewController, as: transition)
-    }
-    
-    func openSettingsStartScreen() -> UIViewController {
+    func openSettings() -> UIViewController {
         let router = DefaultRouter(rootTransition: EmptyTransition())
         let viewController = SettingsViewController()
         let model = SettingsModel()
@@ -38,10 +25,6 @@ extension SettingsRoute where Self: Router {
         viewController.tabBarItem.image = UIImage(named: "settings")?.resizeImage()
         router.root = viewController
         return viewController
-    }
-    
-    func openSettings() {
-        openSettings(with: AnimatedTransition(animatedTransition: FadeAnimatedTransitioning()))
     }
 }
 

@@ -8,12 +8,19 @@
 import Foundation
 import UIKit
 
+// MARK: - TabBarRoute Protocol
+
 protocol TabBarRoute {
     func openTabBar()
     func openTabBarStartScreen() -> UIViewController
 }
 
+// MARK: - TabBarRoute Default Implementation
+
 extension TabBarRoute where Self: Router {
+    
+    // MARK: - Public Methods
+    
     func openTabBar(with transition: Transition) {
         let router = DefaultRouter(rootTransition: transition)
         let viewController = CustomTabBarController()
@@ -48,5 +55,7 @@ extension TabBarRoute where Self: Router {
         openTabBar(with: AnimatedTransition(animatedTransition: FadeAnimatedTransitioning()))
     }
 }
+
+// MARK: - DefaultRouter TabBarRoute Conformance
 
 extension DefaultRouter: TabBarRoute {}

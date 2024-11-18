@@ -9,15 +9,19 @@ import Foundation
 import UIKit
 
 protocol TaskViewRoute {
-    func openTaskView()
-    func openTaskViewStartScreen() -> UIViewController
+    func openTaskView(data: TaskViewScreenModel)
 }
 
 extension TaskViewRoute where Self: Router {
-    private func openTaskView(with transition: Transition) {
+    private func openTaskView(with transition: Transition, data: TaskViewScreenModel) {
         let router = DefaultRouter(rootTransition: transition)
         let viewController = TaskViewScreenViewController()
-        let model = TaskViewScreenModel()
+        let model = TaskViewScreenModel(taskID: data.taskID,
+                                        taskDate: data.taskDate,
+                                        taskDescription: data.taskDescription,
+                                        taskName: data.taskName,
+                                        taskPriority: data.taskPriority,
+                                        taskStatus: data.taskStatus)
         let presenter = TaskViewScreenPresenter(view: viewController,
                                             model: model,
                                             router: router)
@@ -26,20 +30,8 @@ extension TaskViewRoute where Self: Router {
         route(to: viewController, as: transition)
     }
     
-    func openTaskViewStartScreen() -> UIViewController {
-        let router = DefaultRouter(rootTransition: EmptyTransition())
-        let viewController = TaskViewScreenViewController()
-        let model = TaskViewScreenModel()
-        let presenter = TaskViewScreenPresenter(view: viewController,
-                                            model: model,
-                                            router: router)
-        viewController.presenter = presenter
-        router.root = viewController
-        return viewController
-    }
-    
-    func openTaskView() {
-        openTaskView(with: AnimatedTransition(animatedTransition: FadeAnimatedTransitioning()))
+    func openTaskView(data: TaskViewScreenModel) {
+        openTaskView(with: AnimatedTransition(animatedTransition: FadeAnimatedTransitioning()), data: data)
     }
 }
 

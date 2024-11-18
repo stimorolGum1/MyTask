@@ -4,14 +4,23 @@
 //
 //  Created by Danil on 17.10.2024.
 //
+
 import UIKit
 import SnapKit
 
+// MARK: - CustomTabBarDelegate
+
 protocol CustomTabBarDelegate: AnyObject { }
+
+// MARK: - CustomTabBar
 
 final class CustomTabBar: UITabBar {
     
+    // MARK: - Properties
+    
     weak var customDelegate: CustomTabBarControllerProtocol?
+    
+    // MARK: - UI
     
     private lazy var centerButton: UIButton = {
         let button = UIButton()
@@ -23,6 +32,8 @@ final class CustomTabBar: UITabBar {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    // MARK: - Initializers
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,6 +47,8 @@ final class CustomTabBar: UITabBar {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Setup Methods
+    
     private func setupViews() {
         addSubview(centerButton)
     }
@@ -48,9 +61,13 @@ final class CustomTabBar: UITabBar {
         }
     }
     
+    // MARK: - Actions
+    
     @objc func centerButtonTapped() {
         customDelegate?.openCreateTask()
     }
+    
+    // MARK: - Layout Methods
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -74,6 +91,8 @@ final class CustomTabBar: UITabBar {
             button.frame = frame
         }
     }
+    
+    // MARK: - Drawing Methods
     
     override func draw(_ rect: CGRect) {
         setupShape()
@@ -104,6 +123,8 @@ final class CustomTabBar: UITabBar {
         return path
     }
     
+    // MARK: - Hit Test
+    
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if centerButton.frame.contains(point) {
             return centerButton
@@ -113,4 +134,6 @@ final class CustomTabBar: UITabBar {
     }
 }
 
-extension CustomTabBar: CustomTabBarDelegate { }
+// MARK: - CustomTabBarDelegate Conformance
+
+extension CustomTabBar: CustomTabBarDelegate {}

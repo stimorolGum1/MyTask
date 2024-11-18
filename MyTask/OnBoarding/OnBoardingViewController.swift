@@ -8,22 +8,31 @@
 import UIKit
 import SnapKit
 
+// MARK: - Protocol Definition
+
 protocol OnBoardingViewControllerProtocol: AnyObject {
     func display(page: OnBoardingPage)
 }
 
+// MARK: - ViewController Implementation
+
 final class OnBoardingViewController: UIViewController {
     
+    // MARK: - Properties
+
     var presenter: OnBoardingPresenterProtocol!
-    
+
+    // MARK: - UI Elements
+
     private lazy var onBoardingImage: UIImageView = {
-        let image = UIImageView()
-        return image
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }()
     
     private lazy var onBoardingLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "HelveticaNeue-Bold", size: 32)
+        label.font = UIFont.boldSystemFont(ofSize: 32)
         label.textAlignment = .center
         label.numberOfLines = 0
         label.textColor = .white
@@ -31,85 +40,96 @@ final class OnBoardingViewController: UIViewController {
     }()
     
     private lazy var pageControl: UIPageControl = {
-        let pageControl = UIPageControl()
-        pageControl.numberOfPages = 3
-        pageControl.pageIndicatorTintColor = .gray
-        pageControl.currentPageIndicatorTintColor = .blue
-        pageControl.isUserInteractionEnabled = false
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-        return pageControl
+        let control = UIPageControl()
+        control.numberOfPages = presenter.getCountOfPages()
+        control.pageIndicatorTintColor = .gray
+        control.currentPageIndicatorTintColor = .blue
+        control.isUserInteractionEnabled = false
+        return control
     }()
     
     private lazy var nextButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setTitle(Localization.nextButton, for: .normal)
-        button.tintColor = .white
+        button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .blue
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(nextPage), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
-        view.backgroundColor = .black
+        super.viewDidLoad()
         setupViews()
         setupConstraints()
         presenter.showCurrentPage()
     }
-    
+
+    // MARK: - Methods
+
     private func setupViews() {
-        view.addSubview(onBoardingImage)
-        view.addSubview(onBoardingLabel)
-        view.addSubview(pageControl)
-        view.addSubview(nextButton)
+        view.backgroundColor = .black
+        [onBoardingImage, onBoardingLabel, pageControl, nextButton].forEach {
+            view.addSubview($0)
+        }
     }
     
     private func setupConstraints() {
         onBoardingImage.snp.makeConstraints { make in
-            make.top.equalTo(200)
-            make.height.width.equalTo(300)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(50)
             make.centerX.equalToSuperview()
+            make.height.width.equalTo(300)
         }
+        
         onBoardingLabel.snp.makeConstraints { make in
             make.top.equalTo(onBoardingImage.snp.bottom).offset(20)
-            make.leading.equalTo(10)
-            make.trailing.equalTo(-10)
-            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(20)
         }
+        
         pageControl.snp.makeConstraints { make in
-            make.bottom.equalTo(nextButton.snp.top).offset(-40)
-            make.height.equalTo(50)
-            make.width.equalTo(150)
+            make.bottom.equalTo(nextButton.snp.top).offset(-20)
             make.centerX.equalToSuperview()
         }
+        
         nextButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-30)
-            make.leading.equalTo(20)
-            make.trailing.equalTo(-20)
-            make.height.equalTo(30)
-            make.centerX.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(44)
         }
     }
-    
+
+    // MARK: - Actions
+
     @objc private func nextPage() {
         if presenter.getCurrentPageIndex() == 2 {
             presenter.getNextPage()
             return
         }
         
-        UIView.animate(withDuration: 0.3, animations: { [weak self] in
-            self?.onBoardingImage.alpha = 0
-            self?.onBoardingLabel.alpha = 0
-        }, completion: { [weak self] _ in
-            self?.presenter.getNextPage()
-            UIView.animate(withDuration: 0.3, animations: {
-                self?.onBoardingImage.alpha = 1
-                self?.onBoardingLabel.alpha = 1
-            })
+        animatePageTransition {
+            self.presenter.getNextPage()
+        }
+    }
+
+    // MARK: - Animation
+
+    private func animatePageTransition(completion: @escaping () -> Void) {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.onBoardingImage.alpha = 0
+            self.onBoardingLabel.alpha = 0
+        }, completion: { _ in
+            completion()
+            UIView.animate(withDuration: 0.3) {
+                self.onBoardingImage.alpha = 1
+                self.onBoardingLabel.alpha = 1
+            }
         })
     }
 }
+
+// MARK: - Protocol Conformance
 
 extension OnBoardingViewController: OnBoardingViewControllerProtocol {
     func display(page: OnBoardingPage) {

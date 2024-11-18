@@ -10,7 +10,6 @@ import UIKit
 
 protocol CreateTaskRoute {
     func openCreateTask()
-    func openCreateTaskStartScreen() -> UIViewController
 }
 
 extension CreateTaskRoute where Self: Router {
@@ -24,18 +23,6 @@ extension CreateTaskRoute where Self: Router {
         viewController.presenter = presenter
         router.root = viewController
         route(to: viewController, as: transition)
-    }
-    
-    func openCreateTaskStartScreen() -> UIViewController {
-        let router = DefaultRouter(rootTransition: EmptyTransition())
-        let viewController = CreateTaskViewController()
-        let model = CreateTaskModel()
-        let presenter = CreateTaskPesenter(view: viewController,
-                                            model: model,
-                                            router: router)
-        viewController.presenter = presenter
-        router.root = viewController
-        return viewController
     }
     
     func openCreateTask() {

@@ -7,6 +7,8 @@
 
 import UIKit
 
+// MARK: - Image resize extentsion
+
 extension UIImage {
     func resizeImage() -> UIImage? {
         let size = CGSize(width: 30, height: 30)
