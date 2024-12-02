@@ -30,12 +30,12 @@ final class CustomTabBarController: UITabBarController {
         setupTabBarSpacing()
     }
     
-    private func setupTabBarSpacing() { // TODO: пока так оставить 
+    private func setupTabBarSpacing() {
             guard let items = tabBar.items else { return }
-            items[0].titlePositionAdjustment = UIOffset(horizontal: -5, vertical: 0) // Сдвигаем левую вкладку
-            items[1].titlePositionAdjustment = UIOffset(horizontal: -25, vertical: 0)  // Сдвигаем к центру
-            items[2].titlePositionAdjustment = UIOffset(horizontal: 25, vertical: 0)   // Сдвигаем к центру от кнопки
-            items[3].titlePositionAdjustment = UIOffset(horizontal: 5, vertical: 0)  // Сдвигаем правую вкладку
+            items[0].titlePositionAdjustment = UIOffset(horizontal: -5, vertical: 0)
+            items[1].titlePositionAdjustment = UIOffset(horizontal: -25, vertical: 0)
+            items[2].titlePositionAdjustment = UIOffset(horizontal: 25, vertical: 0)
+            items[3].titlePositionAdjustment = UIOffset(horizontal: 5, vertical: 0)
         }
 }
 

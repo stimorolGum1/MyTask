@@ -56,7 +56,7 @@ final class TaskScreenViewController: UIViewController {
         return view
     }()
     
-    private lazy var toDoTableView: UITableView = {
+    private lazy var taskTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
@@ -81,7 +81,7 @@ final class TaskScreenViewController: UIViewController {
     
     private func setupViews() {
         view.backgroundColor = .black
-        [headerLabel, searchTodoBar, toDoTableView].forEach {
+        [headerLabel, searchTodoBar, taskTableView].forEach {
             view.addSubview($0)
         }
     }
@@ -98,7 +98,7 @@ final class TaskScreenViewController: UIViewController {
             make.height.equalTo(40)
         }
         
-        toDoTableView.snp.makeConstraints { make in
+        taskTableView.snp.makeConstraints { make in
             make.top.equalTo(searchTodoBar.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(15)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
@@ -111,12 +111,12 @@ final class TaskScreenViewController: UIViewController {
 extension TaskScreenViewController: TaskScreenViewControllerProtocol {
     func updateToDoTableView() {
         toggleEmptyView()
-        toDoTableView.reloadData()
+        taskTableView.reloadData()
     }
     
     func toggleEmptyView() {
-        toDoTableView.backgroundView = nil
-        toDoTableView.backgroundView = presenter.numberOfRowsInSection() > 0 ? nil : emptyTaskView
+        taskTableView.backgroundView = nil
+        taskTableView.backgroundView = presenter.numberOfRowsInSection() > 0 ? nil : emptyTaskView
     }
 }
 
@@ -138,7 +138,6 @@ extension TaskScreenViewController: UITableViewDataSource, UITableViewDelegate, 
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-            // Проверяем, если индекс последней строки совпадает с последним элементом в секции
             let lastIndex = presenter.numberOfRowsInSection() - 1
             if indexPath.row == lastIndex {
                 presenter.fetchData()
@@ -160,7 +159,7 @@ extension TaskScreenViewController: UITableViewDataSource, UITableViewDelegate, 
 }
 
 extension TaskScreenViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {  // TODO: При любом пинке searchbar вызывает поиск в пустую
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         presenter.makeSearch(searchText: searchText)
     }
     
