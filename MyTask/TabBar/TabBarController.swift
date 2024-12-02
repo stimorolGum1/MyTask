@@ -27,7 +27,16 @@ final class CustomTabBarController: UITabBarController {
         super.viewWillAppear(animated)
         setValue(customTabBar, forKey: "tabBar")
         viewControllers = presenter.prepareTabs()
+        setupTabBarSpacing()
     }
+    
+    private func setupTabBarSpacing() { // TODO: пока так оставить 
+            guard let items = tabBar.items else { return }
+            items[0].titlePositionAdjustment = UIOffset(horizontal: -5, vertical: 0) // Сдвигаем левую вкладку
+            items[1].titlePositionAdjustment = UIOffset(horizontal: -25, vertical: 0)  // Сдвигаем к центру
+            items[2].titlePositionAdjustment = UIOffset(horizontal: 25, vertical: 0)   // Сдвигаем к центру от кнопки
+            items[3].titlePositionAdjustment = UIOffset(horizontal: 5, vertical: 0)  // Сдвигаем правую вкладку
+        }
 }
 
 // MARK: - CustomTabBarControllerProtocol Conformance

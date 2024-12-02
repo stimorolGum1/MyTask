@@ -1,5 +1,5 @@
 //
-//  OnProgressScreenPresenter.swift
+//  TaskScreenPresenter.swift
 //  MyTask
 //
 //  Created by Danil on 12.08.2024.
@@ -9,57 +9,66 @@ import Foundation
 
 // MARK: - Presenter Protocol
 
-protocol OnProgressScreenPresenterProtocol: AnyObject {
+protocol TaskScreenPresenterProtocol: AnyObject {
     func numberOfRowsInSection() -> Int
     func dataAtRow(index: IndexPath) -> Tasks
     func openTaskView(data: TaskViewScreenModel)
     func makeSearch(searchText: String)
+    func fetchData()
 }
 
 // MARK: - Presenter Implementation
 
-final class OnProgressScreenPresenter {
+final class TaskScreenPresenter {
     
     // MARK: - Properties
     
-    private weak var view: OnProgressScreenViewControllerProtocol?
-    private let model: OnProgressScreenModelProtocol
+    private weak var view: TaskScreenViewControllerProtocol?
+    private let model: TaskScreenModelProtocol
     private let router: Routes
     typealias Routes = Closable & TaskViewRoute
+    private var timer: Timer?
     
     // MARK: - Initializer
     
-    init(view: OnProgressScreenViewControllerProtocol, model: OnProgressScreenModelProtocol, router: Routes) {
+    init(view: TaskScreenViewControllerProtocol, model: TaskScreenModelProtocol, router: Routes) {
         self.view = view
         self.model = model
         self.router = router
         
         model.onTasksUpdated = { [weak self] in
-            self?.view?.updateOnProgressTableView()
+            self?.view?.updateToDoTableView()
         }
-
+        
         model.onEmptyViewToggle = { [weak self] in
             self?.view?.toggleEmptyView()
         }
     }
 }
 
-// MARK: - OnProgressScreenPresenterProtocol
+// MARK: - ToDoScreenPresenterProtocol
 
-extension OnProgressScreenPresenter: OnProgressScreenPresenterProtocol {
+extension TaskScreenPresenter: TaskScreenPresenterProtocol {
     func numberOfRowsInSection() -> Int {
         return model.fetchedResultsController.sections?.first?.numberOfObjects ?? 0
     }
-
+    
     func dataAtRow(index: IndexPath) -> Tasks {
         return model.fetchedResultsController.object(at: index)
     }
-
+    
     func openTaskView(data: TaskViewScreenModel) {
         router.openTaskView(data: data)
     }
-
+    
     func makeSearch(searchText: String) {
-        model.setupFetchedResultsController(searchText: searchText)
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] _ in
+            searchText.isEmpty ? () : self?.model.fetchData(searchText: searchText)
+        }
+    }
+    
+    func fetchData() {
+        model.fetchData(searchText: "")
     }
 }

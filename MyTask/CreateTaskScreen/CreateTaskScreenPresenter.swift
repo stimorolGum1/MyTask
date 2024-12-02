@@ -21,14 +21,14 @@ protocol CreateTaskPesenterProtocol: AnyObject {
 
 // MARK: - Presenter Implementation
 
-class CreateTaskPesenter {
+final class CreateTaskPesenter {
     
     // MARK: - Dependencies
     
     private weak var view: CreateTaskViewControllerProtocol?
     private let model: CreateTaskModel
     private let router: Routes
-    typealias Routes = Closable & ToDoRoute & OnProgressRoute & CompleteRoute
+    typealias Routes = Closable & TaskScreenRoute
     
     // MARK: - Initializer
     init(view: CreateTaskViewControllerProtocol?, model: CreateTaskModel, router: Routes) {

@@ -1,5 +1,5 @@
 //
-//  OnProgressScreenController.swift
+//  TaskScreenViewController.swift
 //  MyTask
 //
 //  Created by Danil on 12.08.2024.
@@ -10,34 +10,32 @@ import SnapKit
 
 // MARK: - Protocol Definitions
 
-protocol OnProgressScreenViewControllerProtocol: AnyObject {
-    func updateOnProgressTableView()
+protocol TaskScreenViewControllerProtocol: AnyObject {
+    func updateToDoTableView()
     func toggleEmptyView()
 }
 
 // MARK: - ViewController Implementation
 
-final class OnProgressScreenViewController: UIViewController {
-
+final class TaskScreenViewController: UIViewController {
+    
     // MARK: - Properties
-
-    var presenter: OnProgressScreenPresenterProtocol!
-    private let cellId = "onProgressCell"
+    
+    var presenter: TaskScreenPresenterProtocol!
+    private let cellId = "taskCell"
     private let maxFontSize: CGFloat = 42
     private let minFontSize: CGFloat = 21
-
+    
     // MARK: - UI Elements
-
-    private lazy var headerLabel: UILabel = {
+    
+    lazy var headerLabel: UILabel = {
         let label = UILabel()
-        label.text = Localization.onProgressHeader
         label.font = .boldSystemFont(ofSize: 42)
         label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var searchOnProgressBar: UISearchBar = {
+    private lazy var searchTodoBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.layer.cornerRadius = 10
         searchBar.layer.borderWidth = 1.0
@@ -50,7 +48,6 @@ final class OnProgressScreenViewController: UIViewController {
         )
         searchBar.searchTextField.textColor = .white
         searchBar.delegate = self
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
     }()
     
@@ -59,7 +56,7 @@ final class OnProgressScreenViewController: UIViewController {
         return view
     }()
     
-    private lazy var onProgressTableView: UITableView = {
+    private lazy var toDoTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
@@ -68,42 +65,41 @@ final class OnProgressScreenViewController: UIViewController {
         tableView.register(TableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
     // MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureView()
-        configureConstraints()
+        setupViews()
+        setupConstraints()
         toggleEmptyView()
     }
-
+    
     // MARK: - Methods
-
-    private func configureView() {
+    
+    private func setupViews() {
         view.backgroundColor = .black
-        [headerLabel, searchOnProgressBar, onProgressTableView].forEach {
+        [headerLabel, searchTodoBar, toDoTableView].forEach {
             view.addSubview($0)
         }
     }
     
-    private func configureConstraints() {
+    private func setupConstraints() {
         headerLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.leading.equalToSuperview().offset(20)
         }
         
-        searchOnProgressBar.snp.makeConstraints { make in
+        searchTodoBar.snp.makeConstraints { make in
             make.top.equalTo(headerLabel.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(15)
             make.height.equalTo(40)
         }
         
-        onProgressTableView.snp.makeConstraints { make in
-            make.top.equalTo(searchOnProgressBar.snp.bottom).offset(10)
+        toDoTableView.snp.makeConstraints { make in
+            make.top.equalTo(searchTodoBar.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(15)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
@@ -112,26 +108,26 @@ final class OnProgressScreenViewController: UIViewController {
 
 // MARK: - Protocol Conformance
 
-extension OnProgressScreenViewController: OnProgressScreenViewControllerProtocol {
-    func updateOnProgressTableView() {
+extension TaskScreenViewController: TaskScreenViewControllerProtocol {
+    func updateToDoTableView() {
         toggleEmptyView()
-        onProgressTableView.reloadData()
+        toDoTableView.reloadData()
     }
     
     func toggleEmptyView() {
-        onProgressTableView.backgroundView = nil
-        onProgressTableView.backgroundView = presenter.numberOfRowsInSection() > 0 ? nil : emptyTaskView
+        toDoTableView.backgroundView = nil
+        toDoTableView.backgroundView = presenter.numberOfRowsInSection() > 0 ? nil : emptyTaskView
     }
 }
 
-extension OnProgressScreenViewController: UITableViewDataSource, UITableViewDelegate {
+extension TaskScreenViewController: UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         presenter.numberOfRowsInSection()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TableViewCell else {
-            fatalError("Unable to dequeue TableViewCell")
+            fatalError()
         }
         let item = presenter.dataAtRow(index: indexPath)
         cell.display(
@@ -140,6 +136,14 @@ extension OnProgressScreenViewController: UITableViewDataSource, UITableViewDele
         )
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+            // Проверяем, если индекс последней строки совпадает с последним элементом в секции
+            let lastIndex = presenter.numberOfRowsInSection() - 1
+            if indexPath.row == lastIndex {
+                presenter.fetchData()
+            }
+        }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = presenter.dataAtRow(index: indexPath)
@@ -155,8 +159,8 @@ extension OnProgressScreenViewController: UITableViewDataSource, UITableViewDele
     }
 }
 
-extension OnProgressScreenViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+extension TaskScreenViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {  // TODO: При любом пинке searchbar вызывает поиск в пустую
         presenter.makeSearch(searchText: searchText)
     }
     

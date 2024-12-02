@@ -79,4 +79,3 @@ final class SettingsViewCell: UITableViewCell {
         self.isSwitchShow(isShow: isSwitchShow)
     }
 }
-

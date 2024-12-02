@@ -30,7 +30,6 @@ final class SettingsViewController: UIViewController {
         label.text = Localization.settingsHeader
         label.font = UIFont(name: "HelveticaNeue-Bold", size: maxFontSize)
         label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -41,7 +40,6 @@ final class SettingsViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     

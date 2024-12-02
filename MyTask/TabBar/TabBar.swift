@@ -29,7 +29,6 @@ final class CustomTabBar: UITabBar {
         button.clipsToBounds = true
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         button.addTarget(self, action: #selector(centerButtonTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -65,31 +64,6 @@ final class CustomTabBar: UITabBar {
     
     @objc func centerButtonTapped() {
         customDelegate?.openCreateTask()
-    }
-    
-    // MARK: - Layout Methods
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        let tabBarButtons = subviews.filter { $0 is UIControl && $0 != centerButton }.sorted { $0.frame.minX < $1.frame.minX }
-        guard tabBarButtons.count == 4 else { return }
-        let centralSpacing: CGFloat = 90.0
-        let sideButtonSpacing: CGFloat = 10.0
-        let tabBarWidth = self.frame.width
-        let sideWidth = (tabBarWidth - centralSpacing) / 2.0
-        let buttonWidth = (sideWidth - sideButtonSpacing) / 2.0
-        for (index, button) in tabBarButtons[0...1].enumerated() {
-            var frame = button.frame
-            frame.origin.x = CGFloat(index) * (buttonWidth + sideButtonSpacing)
-            frame.size.width = buttonWidth
-            button.frame = frame
-        }
-        for (index, button) in tabBarButtons[2...3].enumerated() {
-            var frame = button.frame
-            frame.origin.x = tabBarWidth - sideWidth + CGFloat(index) * (buttonWidth + sideButtonSpacing)
-            frame.size.width = buttonWidth
-            button.frame = frame
-        }
     }
     
     // MARK: - Drawing Methods

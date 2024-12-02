@@ -21,7 +21,7 @@ protocol SettingsPresenterProtocol: AnyObject {
 
 // MARK: - Presenter Implementation
 
-class SettingsPresenter {
+final class SettingsPresenter {
     
     // MARK: - Properties
     

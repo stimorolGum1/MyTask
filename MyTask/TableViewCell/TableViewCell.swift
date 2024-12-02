@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 // MARK: - TableViewCell
 
@@ -17,7 +18,6 @@ final class TableViewCell: UITableViewCell {
         let view = UIView()
         view.backgroundColor = #colorLiteral(red: 0.2117647059, green: 0.2117647059, blue: 0.2117647059, alpha: 1)
         view.layer.cornerRadius = 15
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
@@ -25,7 +25,6 @@ final class TableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 25)
         label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -34,7 +33,6 @@ final class TableViewCell: UITableViewCell {
         label.text = "ToDo"
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 17)
         label.textColor = #colorLiteral(red: 0.6862745098, green: 0.6862745098, blue: 0.6862745098, alpha: 1)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -85,4 +83,3 @@ final class TableViewCell: UITableViewCell {
         self.dateLabel.text = dateLabel
     }
 }
-

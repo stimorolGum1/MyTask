@@ -28,7 +28,6 @@ final class CreateTaskViewController: UIViewController {
         label.text = Localization.createTaskHeader
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 32)
         label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -39,7 +38,6 @@ final class CreateTaskViewController: UIViewController {
         button.tintColor = .black
         button.layer.cornerRadius = 15
         button.addTarget(self, action: #selector(closeCreateTaskButtonTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -48,7 +46,6 @@ final class CreateTaskViewController: UIViewController {
         label.text = Localization.taskTitleLabel
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 15)
         label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -62,7 +59,6 @@ final class CreateTaskViewController: UIViewController {
         textView.textColor = .white
         textView.backgroundColor = .black
         textView.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
-        textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
     
@@ -71,7 +67,6 @@ final class CreateTaskViewController: UIViewController {
         label.text = Localization.taskDescriptionLabel
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 15)
         label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -86,7 +81,6 @@ final class CreateTaskViewController: UIViewController {
         textView.textColor = .white
         textView.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
         textView.delegate = self
-        textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
     
@@ -94,7 +88,6 @@ final class CreateTaskViewController: UIViewController {
         let label = UILabel()
         label.text = Localization.taskDateLabel
         label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -104,7 +97,6 @@ final class CreateTaskViewController: UIViewController {
         datePicker.datePickerMode = .dateAndTime
         datePicker.layer.cornerRadius = 10
         datePicker.layer.masksToBounds = true
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
     }()
     
@@ -112,7 +104,6 @@ final class CreateTaskViewController: UIViewController {
         let label = UILabel()
         label.text = Localization.taskPriorityLabel
         label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -123,7 +114,6 @@ final class CreateTaskViewController: UIViewController {
         button.menu = priorityMenu
         button.showsMenuAsPrimaryAction = true
         button.setTitle(Localization.taskPriorityButton, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -148,9 +138,8 @@ final class CreateTaskViewController: UIViewController {
     
     private lazy var taskStatusLabel: UILabel = {
         let label = UILabel()
-        label.text = "Task status"
+        label.text = Localization.taskStatusLabel
         label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -161,7 +150,6 @@ final class CreateTaskViewController: UIViewController {
         button.menu = statusMenu
         button.showsMenuAsPrimaryAction = true
         button.setTitle(Localization.taskStatusButton, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -191,7 +179,6 @@ final class CreateTaskViewController: UIViewController {
         button.backgroundColor = .blue
         button.setTitle(Localization.createTaskButton, for: .normal)
         button.addTarget(self, action: #selector(createTaskButtonTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     

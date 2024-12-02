@@ -40,6 +40,7 @@ enum Localization {
     static let taskDateLabel = NSLocalizedString("taskDateLabel", comment: "")
     static let taskPriorityLabel = NSLocalizedString("taskPriorityLabel", comment: "")
     static let taskPriorityButton = NSLocalizedString("taskPriorityButton", comment: "")
+    static let taskStatusLabel = NSLocalizedString("taskStatusLabel", comment: "")
     static let taskStatusButton = NSLocalizedString("taskStatusButton", comment: "")
     static let createTaskButton = NSLocalizedString("createTaskButton", comment: "")
     static let editTaskButtonEdit = NSLocalizedString("editTaskButtonEdit", comment: "")

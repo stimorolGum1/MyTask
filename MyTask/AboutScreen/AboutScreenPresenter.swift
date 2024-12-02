@@ -15,7 +15,7 @@ protocol AboutScreenPresenterProtocol: AnyObject {
 
 // MARK: - Presenter Implementation
 
-class AboutScreenPresenter {
+final class AboutScreenPresenter {
     
     // MARK: - Properties
     

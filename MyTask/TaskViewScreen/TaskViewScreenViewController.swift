@@ -29,7 +29,6 @@ final class TaskViewScreenViewController: UIViewController {
         label.text = Localization.viewTaskHeader
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 32)
         label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -40,7 +39,6 @@ final class TaskViewScreenViewController: UIViewController {
         button.tintColor = .black
         button.layer.cornerRadius = 15
         button.addTarget(self, action: #selector(closeTaskViewButtonTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -49,7 +47,6 @@ final class TaskViewScreenViewController: UIViewController {
         label.text = Localization.taskTitleLabel
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 15)
         label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -64,7 +61,6 @@ final class TaskViewScreenViewController: UIViewController {
         textView.backgroundColor = .black
         textView.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
         textView.isEditable = false
-        textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
     
@@ -73,7 +69,6 @@ final class TaskViewScreenViewController: UIViewController {
         label.text = Localization.taskDescriptionLabel
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 15)
         label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -88,7 +83,6 @@ final class TaskViewScreenViewController: UIViewController {
         textView.textColor = .white
         textView.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
         textView.isEditable = false
-        textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
     
@@ -96,7 +90,6 @@ final class TaskViewScreenViewController: UIViewController {
         let label = UILabel()
         label.text = Localization.taskDateLabel
         label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -107,7 +100,6 @@ final class TaskViewScreenViewController: UIViewController {
         datePicker.layer.cornerRadius = 10
         datePicker.layer.masksToBounds = true
         datePicker.isUserInteractionEnabled = false
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
     }()
     
@@ -115,7 +107,6 @@ final class TaskViewScreenViewController: UIViewController {
         let label = UILabel()
         label.text = Localization.taskPriorityLabel
         label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -127,7 +118,6 @@ final class TaskViewScreenViewController: UIViewController {
         button.showsMenuAsPrimaryAction = true
         button.setTitle(Localization.taskPriorityButton, for: .normal)
         button.isUserInteractionEnabled = false
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -152,9 +142,8 @@ final class TaskViewScreenViewController: UIViewController {
     
     private lazy var taskStatusLabel: UILabel = {
         let label = UILabel()
-        label.text = "Task status"
+        label.text = Localization.taskStatusLabel
         label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -165,7 +154,6 @@ final class TaskViewScreenViewController: UIViewController {
         button.menu = statusMenu
         button.showsMenuAsPrimaryAction = true
         button.setTitle(Localization.taskStatusButton, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -195,7 +183,6 @@ final class TaskViewScreenViewController: UIViewController {
         button.backgroundColor = .blue
         button.setTitle(Localization.editTaskButtonEdit, for: .normal)
         button.addTarget(self, action: #selector(isEditEnable), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -205,7 +192,6 @@ final class TaskViewScreenViewController: UIViewController {
         button.backgroundColor = .red
         button.setTitle(Localization.deleteTaskButton, for: .normal)
         button.addTarget(self, action: #selector(deleteTaskButtonTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -216,7 +202,6 @@ final class TaskViewScreenViewController: UIViewController {
         button.setTitle(Localization.saveTaskButton, for: .normal)
         button.isUserInteractionEnabled = false
         button.addTarget(self, action: #selector(updateTaskButtonTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -225,6 +210,8 @@ final class TaskViewScreenViewController: UIViewController {
         display()
         setupViews()
         setupConstraints()
+        setupStatus()
+        setupPriority()
     }
     
     // MARK: - Methods
@@ -379,7 +366,32 @@ final class TaskViewScreenViewController: UIViewController {
         taskDatePicker.date = data.taskDate!
         priority = data.taskPriority
         status = data.taskStatus
-        
+    }
+    
+    private func setupStatus() {
+        switch status {
+        case 1:
+            self.taskStatusButton.setTitle(Localization.toDo, for: .normal)
+        case 2:
+            self.taskStatusButton.setTitle(Localization.onProgress, for: .normal)
+        case 3:
+            self.taskStatusButton.setTitle(Localization.complete, for: .normal)
+        default:
+            break
+        }
+    }
+    
+    private func setupPriority() {
+        switch priority {
+        case 1:
+            self.taskPriorityButton.setTitle(Localization.priorityOne, for: .normal)
+        case 2:
+            self.taskPriorityButton.setTitle(Localization.priorityTwo, for: .normal)
+        case 3:
+            self.taskPriorityButton.setTitle(Localization.priorityThree, for: .normal)
+        default:
+            break
+        }
     }
     
     @objc private func deleteTaskButtonTapped() {

@@ -17,14 +17,14 @@ protocol CustomTabBarPresenterProtocol: AnyObject {
 
 // MARK: - Presenter Implementation
 
-class CustomTabBarPresenter {
+final class CustomTabBarPresenter {
     
     // MARK: - Properties
     
     weak var view: CustomTabBarControllerProtocol?
     var model: CustomTabBarModel
     private let router: Routes
-    typealias Routes = Closable & ToDoRoute & OnProgressRoute & CompleteRoute & SettingsRoute & CreateTaskRoute
+    typealias Routes = Closable & TaskScreenRoute & SettingsRoute & CreateTaskRoute
     
     // MARK: - Initializer
     
@@ -43,7 +43,10 @@ extension CustomTabBarPresenter: CustomTabBarPresenterProtocol {
     }
     
     func prepareTabs() -> [UIViewController] {
-        model.items = [router.openToDo(), router.openOnProgress(), router.openComplete(), router.openSettings()]
+        model.items = [router.openTaskScreen(nameOfIcon: "todo", named: Localization.toDoHeader, taskStatus: 1),
+                       router.openTaskScreen(nameOfIcon: "onprogress", named: Localization.onProgress, taskStatus: 2),
+                       router.openTaskScreen(nameOfIcon: "complete", named: Localization.complete, taskStatus: 3),
+                       router.openSettings()]
         return model.items
     }
 }

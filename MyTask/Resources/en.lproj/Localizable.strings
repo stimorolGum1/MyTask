@@ -46,6 +46,7 @@
 "taskDateLabel" = "Due Date";
 "taskPriorityLabel" = "Task Priority";
 "taskPriorityButton" = "Priority";
+"taskStatusLabel" = "Task Status";
 "taskStatusButton" = "Status";
 "createTaskButton" = "Create Task";
 "editTaskButtonEdit" = "Edit Task";

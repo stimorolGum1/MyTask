@@ -10,10 +10,9 @@ import CoreData
 
 // MARK: - StorageManager
 
-final class StorageManager {
+final class StorageManager { 
     
     static let shared = StorageManager()
-    
     private init() {}
     
     // MARK: - Core Data Stack
@@ -24,7 +23,6 @@ final class StorageManager {
             if let error = error as NSError? {
                 fatalError("Failed to load persistent stores: \(error)")
             }
-            print("Core Data storage path: \(storeDescription.url?.path ?? "Not available")")
         }
         return container
     }()
@@ -160,37 +158,28 @@ final class StorageManager {
     // MARK: - Fetching Data
     
     func createItemsController(
-        taskStatus: Int,
-        searchText: String,
-        delegate: NSFetchedResultsControllerDelegate
-    ) -> NSFetchedResultsController<Tasks> {
-        let fetchRequest: NSFetchRequest<Tasks> = Tasks.fetchRequest()
-        var predicates = [NSPredicate(format: "taskStatus == %d", taskStatus)]
-        if !searchText.isEmpty {
-            predicates.append(NSPredicate(format: "taskName CONTAINS[cd] %@", searchText))
+            taskStatus: Int,
+            searchText: String,
+            delegate: NSFetchedResultsControllerDelegate?
+        ) -> NSFetchedResultsController<Tasks> {
+            let fetchRequest: NSFetchRequest<Tasks> = Tasks.fetchRequest()
+            var predicates = [NSPredicate(format: "taskStatus == %d", taskStatus)]
+            if !searchText.isEmpty {
+                predicates.append(NSPredicate(format: "taskName CONTAINS[cd] %@", searchText))
+            }
+            fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "taskDate", ascending: true)]
+            fetchRequest.fetchBatchSize = 10
+            let fetchedResultsController = NSFetchedResultsController(
+                fetchRequest: fetchRequest,
+                managedObjectContext: context,
+                sectionNameKeyPath: nil,
+                cacheName: nil
+            )
+            fetchedResultsController.delegate = delegate
+            return fetchedResultsController
         }
-        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
-        let sortDescriptor = NSSortDescriptor(key: "taskDate", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        let fetchedResultsController = NSFetchedResultsController(
-            fetchRequest: fetchRequest,
-            managedObjectContext: context,
-            sectionNameKeyPath: nil,
-            cacheName: nil
-        )
-        
-        fetchedResultsController.delegate = delegate
-        
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            fatalError("Failed to perform fetch: \(error.localizedDescription)")
-        }
-        
-        return fetchedResultsController
-    }
-    
+
     // MARK: Count of Items
     
     func countOfItems(taskStatus: Int) -> Int {

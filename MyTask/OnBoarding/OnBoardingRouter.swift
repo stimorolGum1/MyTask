@@ -8,13 +8,13 @@
 import Foundation
 import UIKit
 
-// MARK: - ToDoRoute Protocol
+// MARK: - TaskScreenRoute Protocol
 
 protocol OnBoardingRoute {
     func openOnBoardingStartScreen() -> UIViewController
 }
 
-// MARK: - Default implementation of ToDoRoute
+// MARK: - Default implementation of OnboardingRoute
 
 extension OnBoardingRoute where Self: Router {
     func openOnBoardingStartScreen() -> UIViewController {

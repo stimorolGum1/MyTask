@@ -40,9 +40,10 @@
 "taskDateLabel" = "Дата выполнения";
 "taskPriorityLabel" = "Приоритет задачи";
 "taskPriorityButton" = "Приоритет";
+"taskStatusLabel" = "Статус задачи";
 "taskStatusButton" = "Статус";
 "createTaskButton" = "Создать задачу";
-"editTaskButtonStartEdit" = "Изменить задачу";
+"editTaskButtonEdit" = "Изменить задачу";
 "editTaskButtonEndEdit" = "Завершить изменения";
 "deleteTaskButton" = "Удалить задачу";
 "saveTaskButton" = "Сохранить задачу";

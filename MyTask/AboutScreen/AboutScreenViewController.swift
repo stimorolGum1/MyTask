@@ -29,7 +29,6 @@ final class AboutScreenViewController: UIViewController {
         button.tintColor = .black
         button.layer.cornerRadius = 15
         button.addTarget(self, action: #selector(closeAboutScreenButtonTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -39,7 +38,6 @@ final class AboutScreenViewController: UIViewController {
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 42)
         label.textColor = .white
         label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -50,7 +48,6 @@ final class AboutScreenViewController: UIViewController {
         label.textColor = .white
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -61,7 +58,6 @@ final class AboutScreenViewController: UIViewController {
         label.textColor = .white
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     

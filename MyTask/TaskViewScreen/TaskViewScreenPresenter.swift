@@ -24,7 +24,7 @@ protocol TaskViewScreenPresenterProtocol: AnyObject {
 
 // MARK: - Presenter Implementation
 
-class TaskViewScreenPresenter {
+final class TaskViewScreenPresenter {
     
     // MARK: - Properties
     
