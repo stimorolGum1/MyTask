@@ -15,6 +15,7 @@ protocol TaskViewRoute {
 extension TaskViewRoute where Self: Router {
     private func openTaskView(with transition: Transition, data: TaskViewScreenModel) {
         let router = DefaultRouter(rootTransition: transition)
+        let pushManager = PushManager()
         let viewController = TaskViewScreenViewController()
         let model = TaskViewScreenModel(taskID: data.taskID,
                                         taskDate: data.taskDate,
@@ -23,8 +24,9 @@ extension TaskViewRoute where Self: Router {
                                         taskPriority: data.taskPriority,
                                         taskStatus: data.taskStatus)
         let presenter = TaskViewScreenPresenter(view: viewController,
-                                            model: model,
-                                            router: router)
+                                                model: model,
+                                                router: router,
+                                                pushManager: pushManager)
         viewController.presenter = presenter
         router.root = viewController
         route(to: viewController, as: transition)

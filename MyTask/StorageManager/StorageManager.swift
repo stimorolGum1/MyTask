@@ -47,40 +47,45 @@ final class StorageManager {
     
     // MARK: Create Task
     
-    func createTask(
-        taskDate: Date,
-        taskDescription: String,
-        taskName: String,
-        taskPriority: NSDecimalNumber,
-        taskStatus: NSDecimalNumber,
-        completion: @escaping (String) -> Void
+    func createTask(taskDate: Date,
+                    taskDescription: String,
+                    taskName: String,
+                    taskPriority: NSDecimalNumber,
+                    taskStatus: NSDecimalNumber,
+                    completion: @escaping (String, NSManagedObjectID?) -> Void
     ) {
+        guard taskDate > Date() else {
+            completion(Localization.taskDateInPast, nil)
+            return
+        }
+
         let file = Tasks(context: context)
         file.taskDate = taskDate
         file.taskDescription = taskDescription
         file.taskName = taskName
         file.taskPriority = taskPriority
         file.taskStatus = taskStatus
+
         if context.hasChanges {
             do {
                 try context.save()
-                completion(Localization.taskCreate)
+                completion(Localization.taskCreate, file.objectID)
             } catch {
                 context.rollback()
             }
         }
     }
-    
+
     // MARK: Update Task
     
-    func updateTask(
-        taskID: NSManagedObjectID,
-        taskDate: Date? = nil,
-        taskDescription: String? = nil,
-        taskName: String? = nil,
-        taskPriority: NSDecimalNumber? = nil,
-        taskStatus: NSDecimalNumber? = nil,
-        completion: @escaping (String) -> Void
+    func updateTask(taskID: NSManagedObjectID,
+                    taskDate: Date? = nil,
+                    taskDescription: String? = nil,
+                    taskName: String? = nil,
+                    taskPriority: NSDecimalNumber? = nil,
+                    taskStatus: NSDecimalNumber? = nil,
+                    completion: @escaping (String) -> Void,
+                    completionForPush: @escaping (String, Date) -> Void
     ) {
         do {
             let task = try context.existingObject(with: taskID) as? Tasks
@@ -91,9 +96,15 @@ final class StorageManager {
             
             var changesDetected = false
             
-            if let newDate = taskDate, task.taskDate != newDate {
-                task.taskDate = newDate
-                changesDetected = true
+            if let newDate = taskDate {
+                guard newDate > Date() else {
+                    completion(Localization.taskDateInPast)
+                    return
+                }
+                if task.taskDate != newDate {
+                    task.taskDate = newDate
+                    changesDetected = true
+                }
             }
             
             if let newDescription = taskDescription, task.taskDescription != newDescription {
@@ -119,6 +130,9 @@ final class StorageManager {
             if changesDetected {
                 try context.save()
                 completion(Localization.taskUpdate)
+                if let updatedName = taskName, let updatedDate = taskDate {
+                    completionForPush(updatedName, updatedDate)
+                }
             } else {
                 completion(Localization.taskNotChange)
             }
@@ -126,7 +140,7 @@ final class StorageManager {
             context.rollback()
         }
     }
-    
+
     // MARK: Delete Task
     
     func deleteTask(id: NSManagedObjectID, completion: @escaping (String) -> Void) {
@@ -157,10 +171,9 @@ final class StorageManager {
     
     // MARK: - Fetching Data
     
-    func createItemsController(
-            taskStatus: Int,
-            searchText: String,
-            delegate: NSFetchedResultsControllerDelegate?
+    func createItemsController(taskStatus: Int,
+                               searchText: String,
+                               delegate: NSFetchedResultsControllerDelegate?
         ) -> NSFetchedResultsController<Tasks> {
             let fetchRequest: NSFetchRequest<Tasks> = Tasks.fetchRequest()
             var predicates = [NSPredicate(format: "taskStatus == %d", taskStatus)]

@@ -75,3 +75,10 @@
 "taskUpdate" = "Задача успешно обновлена";
 "taskNotChange" = "Изменений не обнаружено";
 "deleteTask" = "Задача удалена";
+"taskDateInPast" = "Невозможно создать задачу в прошлом";
+// PushManagerStatus
+"checkPushSettings" = "Проверьте настройки, возможно вы отключили уведомления для приложения";
+"contentTitle" = "Не забудьте про задачу";
+"contentBodyLeftSide" = "Срок выполнения задачи:";
+"contentBodyRightSide" = "подходит к концу";
+

@@ -72,4 +72,10 @@ enum Localization {
     static let taskUpdate = NSLocalizedString("taskUpdate", comment: "")
     static let taskNotChange = NSLocalizedString("taskNotChange", comment: "")
     static let deleteTask = NSLocalizedString("deleteTask", comment: "")
+    static let taskDateInPast = NSLocalizedString("taskDateInPast", comment: "")
+    // PushManagerStatus
+    static let checkPushSettings = NSLocalizedString("checkPushSettings", comment: "")
+    static let contentTitle = NSLocalizedString("contentTitle", comment: "")
+    static let contentBodyLeftSide = NSLocalizedString("contentBodyLeftSide", comment: "")
+    static let contentBodyRightSide = NSLocalizedString("contentBodyRightSide", comment: "")
 }

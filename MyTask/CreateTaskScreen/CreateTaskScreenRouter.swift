@@ -15,11 +15,12 @@ protocol CreateTaskRoute {
 extension CreateTaskRoute where Self: Router {
     private func openCreateTask(with transition: Transition) {
         let router = DefaultRouter(rootTransition: transition)
+        let pushManager = PushManager()
         let viewController = CreateTaskViewController()
         let model = CreateTaskModel()
         let presenter = CreateTaskPesenter(view: viewController,
                                             model: model,
-                                            router: router)
+                                           router: router, pushManager: pushManager)
         viewController.presenter = presenter
         router.root = viewController
         route(to: viewController, as: transition)

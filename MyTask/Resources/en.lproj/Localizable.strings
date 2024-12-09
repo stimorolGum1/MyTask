@@ -81,3 +81,9 @@
 "taskUpdate" = "Task successfully updated";
 "taskNotChange" = "No changes detected";
 "deleteTask" = "Task delete";
+"taskDateInPast" = "Cannot create task in past";
+// PushManagerStatus
+"checkPushSettings" = "Check settings, maybe you turn off push for this app";
+"contentTitle" = "Don't forget about task";
+"contentBodyLeftSide" = "Deadline for task:";
+"contentBodyRightSide" = "end soon";

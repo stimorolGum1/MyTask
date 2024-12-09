@@ -10,7 +10,9 @@ import SnapKit
 
 // MARK: - Protocol Definitions
 
-protocol SettingsViewControllerProtocol: AnyObject {}
+protocol SettingsViewControllerProtocol: AnyObject {
+    func showAlert(message: String, withCancel: Bool, completion: (() -> Void)?)
+}
 
 // MARK: - ViewController Implementation
 
@@ -73,23 +75,29 @@ final class SettingsViewController: UIViewController {
         }
     }
     
-    @objc private func didToggleSwitch(_ sender: UISwitch) {
-        presenter.enablePush()
-    }
-    
-    private func showAlert() {
-        let alert = UIAlertController(title: nil, message: Localization.wipe, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
-            self?.presenter.wipeStorage()
-        }))
-        alert.addAction(UIAlertAction(title: Localization.cancel, style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+    @objc private func didTogglePushNotificationSwitch(_ sender: UISwitch) {
+        presenter.controlPush(enable: sender.isOn) {
+            sender.isOn = false
+        }
     }
 }
 
 // MARK: - Protocol Conformance
 
-extension SettingsViewController: SettingsViewControllerProtocol {}
+extension SettingsViewController: SettingsViewControllerProtocol {
+    func showAlert(message: String, withCancel: Bool, completion: (() -> Void)?) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            completion?()
+        }))
+        if withCancel {
+            alert.addAction(UIAlertAction(title: Localization.cancel, style: .cancel, handler: nil))
+        }
+        
+        present(alert, animated: true, completion: nil)
+    }
+
+}
 
 extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -114,10 +122,13 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: settingsCellId, for: indexPath) as! SettingsViewCell
-        cell.display(settingsLabel: presenter.dataOfRowInSection(section: indexPath.section, row: indexPath.row).name,
-                     isSwitchShow: presenter.dataOfRowInSection(section: indexPath.section, row: indexPath.row).switchIsEnabled)
-        if presenter.dataOfRowInSection(section: indexPath.section, row: indexPath.row).switchIsEnabled {
-            cell.settingsSwitch.addTarget(self, action: #selector(didToggleSwitch(_:)), for: .valueChanged)
+        let items = presenter.dataOfRowInSection(section: indexPath.section, row: indexPath.row)
+        cell.display(settingsLabel: items.name, isSwitchShow: items.switchIsEnabled)
+        if items.switchIsEnabled {
+            cell.settingsSwitch.isOn = items.isSwitchEnableFor ?? false
+            cell.settingsSwitch.removeTarget(nil, action: nil, for: .allEvents)
+            cell.settingsSwitch.addTarget(self, action: #selector(didTogglePushNotificationSwitch(_:)), for: .valueChanged)
+            cell.settingsSwitch.tag = indexPath.row
         }
         return cell
     }
@@ -131,7 +142,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         if !items.switchIsEnabled {
             switch items.name {
             case Localization.wipeStorage:
-                showAlert()
+                showAlert(message: Localization.wipe, withCancel: true) { [weak self] in
+                    self?.presenter.wipeStorage()
+                }
             case Localization.aboutApp:
                 presenter.openAboutScreen()
             default:

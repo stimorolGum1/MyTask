@@ -21,7 +21,7 @@
 		830BEB1E2CAA647700309701 /* CreateTaskScreenRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830BEB1D2CAA646E00309701 /* CreateTaskScreenRouter.swift */; };
 		831CB2092CD4D4E7008F4B06 /* Tasks+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831CB2072CD4D4E7008F4B06 /* Tasks+CoreDataClass.swift */; };
 		831CB20A2CD4D4E7008F4B06 /* Tasks+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831CB2082CD4D4E7008F4B06 /* Tasks+CoreDataProperties.swift */; };
-		832AB9792CD7468D007E8B85 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832AB9782CD74683007E8B85 /* StringExtensions.swift */; };
+		832AB9792CD7468D007E8B85 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832AB9782CD74683007E8B85 /* DateExtensions.swift */; };
 		832BE04A2CB6387800BD9A2E /* TaskViewScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832BE0492CB6387100BD9A2E /* TaskViewScreenViewController.swift */; };
 		832BE04C2CB6388400BD9A2E /* TaskViewScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832BE04B2CB6388000BD9A2E /* TaskViewScreenPresenter.swift */; };
 		832BE04E2CB6388B00BD9A2E /* TaskViewScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832BE04D2CB6388800BD9A2E /* TaskViewScreenModel.swift */; };
@@ -30,6 +30,7 @@
 		833320F52C5BCE3F00A31565 /* OnBoardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833320F42C5BCE3F00A31565 /* OnBoardingPresenter.swift */; };
 		833320F72C5BCE4E00A31565 /* OnBoardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833320F62C5BCE4E00A31565 /* OnBoardingModel.swift */; };
 		8333BBB02C9C148400322853 /* SettingsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8333BBAF2C9C148400322853 /* SettingsViewCell.swift */; };
+		8349E5F42CFDD08100F210CB /* PushManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8349E5F32CFDD07800F210CB /* PushManager.swift */; };
 		836C2EBA2CC5EEDF00D50B07 /* AboutScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836C2EB92CC5EECC00D50B07 /* AboutScreenViewController.swift */; };
 		836C2EBC2CC5EEFF00D50B07 /* AboutScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836C2EBB2CC5EEEF00D50B07 /* AboutScreenPresenter.swift */; };
 		836C2EC02CC5EF1200D50B07 /* AboutScreenRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836C2EBF2CC5EF0D00D50B07 /* AboutScreenRouter.swift */; };
@@ -75,6 +76,7 @@
 		8394EC332C5E6D20009C62CD /* OnBoardingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8394EC322C5E6D20009C62CD /* OnBoardingRouter.swift */; };
 		83AAF0792CC0A2F000BFAC8C /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AAF0782CC0A2E900BFAC8C /* TabBar.swift */; };
 		83B10B112CC8BD8000302682 /* Tasks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83B10B0F2CC8BD8000302682 /* Tasks.xcdatamodeld */; };
+		83BFAADA2CFFF8DF00F586E5 /* UserDefaultsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BFAAD92CFFF8D100F586E5 /* UserDefaultsEnum.swift */; };
 		83C4BC4B2C74D1820058CA34 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4BC4A2C74D1820058CA34 /* TableViewCell.swift */; };
 		83C8A7F62CEADF41005BC92A /* WipeStorageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8A7F52CEADF2D005BC92A /* WipeStorageDelegate.swift */; };
 		83D246EE2C84A10F009E8595 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D246ED2C84A10F009E8595 /* SettingsViewController.swift */; };
@@ -127,7 +129,7 @@
 		830BEB1D2CAA646E00309701 /* CreateTaskScreenRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskScreenRouter.swift; sourceTree = "<group>"; };
 		831CB2072CD4D4E7008F4B06 /* Tasks+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tasks+CoreDataClass.swift"; sourceTree = "<group>"; };
 		831CB2082CD4D4E7008F4B06 /* Tasks+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tasks+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		832AB9782CD74683007E8B85 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		832AB9782CD74683007E8B85 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		832BE0492CB6387100BD9A2E /* TaskViewScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewScreenViewController.swift; sourceTree = "<group>"; };
 		832BE04B2CB6388000BD9A2E /* TaskViewScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewScreenPresenter.swift; sourceTree = "<group>"; };
 		832BE04D2CB6388800BD9A2E /* TaskViewScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewScreenModel.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 		833320F42C5BCE3F00A31565 /* OnBoardingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPresenter.swift; sourceTree = "<group>"; };
 		833320F62C5BCE4E00A31565 /* OnBoardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingModel.swift; sourceTree = "<group>"; };
 		8333BBAF2C9C148400322853 /* SettingsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewCell.swift; sourceTree = "<group>"; };
+		8349E5F32CFDD07800F210CB /* PushManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushManager.swift; sourceTree = "<group>"; };
 		836C2EB92CC5EECC00D50B07 /* AboutScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutScreenViewController.swift; sourceTree = "<group>"; };
 		836C2EBB2CC5EEEF00D50B07 /* AboutScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutScreenPresenter.swift; sourceTree = "<group>"; };
 		836C2EBF2CC5EF0D00D50B07 /* AboutScreenRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutScreenRouter.swift; sourceTree = "<group>"; };
@@ -162,6 +165,7 @@
 		8394EC322C5E6D20009C62CD /* OnBoardingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingRouter.swift; sourceTree = "<group>"; };
 		83AAF0782CC0A2E900BFAC8C /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		83B10B102CC8BD8000302682 /* Tasks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tasks.xcdatamodel; sourceTree = "<group>"; };
+		83BFAAD92CFFF8D100F586E5 /* UserDefaultsEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsEnum.swift; sourceTree = "<group>"; };
 		83C4BC4A2C74D1820058CA34 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		83C8A7F52CEADF2D005BC92A /* WipeStorageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WipeStorageDelegate.swift; sourceTree = "<group>"; };
 		83D246ED2C84A10F009E8595 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -291,15 +295,16 @@
 			isa = PBXGroup;
 			children = (
 				83923A5B2C63C31200863E7B /* Resources */,
-				83EA94412CC1012B00C47D3D /* Extensions & Protocols */,
+				83EA94412CC1012B00C47D3D /* Extensions & Delegates & Enums */,
 				839F7ABD2CC53B5200D9DFC9 /* AboutScreen */,
 				8305351D2CAF94E900B8658E /* CustomViews */,
 				83A0FB8D2C8604CF00D18ED4 /* TableViewCell */,
+				830A03CF2C592E340032DCD2 /* StorageManager */,
+				8349E5F22CFDD06900F210CB /* PushManager */,
 				838510682C69FB8300AA1C55 /* SettingsScreen */,
 				838510672C69FA9400AA1C55 /* TaskViewScreen */,
 				830BEB162CAA615C00309701 /* CreateTaskScreen */,
 				8394EC072C5E6269009C62CD /* Routes */,
-				830A03CF2C592E340032DCD2 /* StorageManager */,
 				830A03CC2C592E0D0032DCD2 /* TaskScreen */,
 				830A03CB2C592DFF0032DCD2 /* TabBar */,
 				830A03CA2C592DF50032DCD2 /* OnBoarding */,
@@ -336,6 +341,14 @@
 				830BEB1D2CAA646E00309701 /* CreateTaskScreenRouter.swift */,
 			);
 			path = CreateTaskScreen;
+			sourceTree = "<group>";
+		};
+		8349E5F22CFDD06900F210CB /* PushManager */ = {
+			isa = PBXGroup;
+			children = (
+				8349E5F32CFDD07800F210CB /* PushManager.swift */,
+			);
+			path = PushManager;
 			sourceTree = "<group>";
 		};
 		8373CC942C7F303E0043AAAC /* EmptyTaskView */ = {
@@ -428,14 +441,15 @@
 			path = TableViewCell;
 			sourceTree = "<group>";
 		};
-		83EA94412CC1012B00C47D3D /* Extensions & Protocols */ = {
+		83EA94412CC1012B00C47D3D /* Extensions & Delegates & Enums */ = {
 			isa = PBXGroup;
 			children = (
+				83BFAAD92CFFF8D100F586E5 /* UserDefaultsEnum.swift */,
 				83C8A7F52CEADF2D005BC92A /* WipeStorageDelegate.swift */,
-				832AB9782CD74683007E8B85 /* StringExtensions.swift */,
+				832AB9782CD74683007E8B85 /* DateExtensions.swift */,
 				83EA94422CC1013200C47D3D /* UIImageExtensions.swift */,
 			);
-			path = "Extensions & Protocols";
+			path = "Extensions & Delegates & Enums";
 			sourceTree = "<group>";
 		};
 		F3CD97C4D8AD453A977F052E /* Pods */ = {
@@ -718,8 +732,10 @@
 				8394EC2F2C5E6269009C62CD /* DefaultRouter.swift in Sources */,
 				837F5D452C68F8CF006CB68B /* TabBarController.swift in Sources */,
 				8392FE702CC3F21A0085D826 /* TabBarModel.swift in Sources */,
+				8349E5F42CFDD08100F210CB /* PushManager.swift in Sources */,
 				83923A672C63C36700863E7B /* Localization.swift in Sources */,
 				830B3B1D2C568BF100B29E70 /* AppDelegate.swift in Sources */,
+				83BFAADA2CFFF8DF00F586E5 /* UserDefaultsEnum.swift in Sources */,
 				836C2EC02CC5EF1200D50B07 /* AboutScreenRouter.swift in Sources */,
 				836C2EBC2CC5EEFF00D50B07 /* AboutScreenPresenter.swift in Sources */,
 				83AAF0792CC0A2F000BFAC8C /* TabBar.swift in Sources */,
@@ -734,7 +750,7 @@
 				830BEB182CAA618200309701 /* CreateTaskScreenViewController.swift in Sources */,
 				830BEB1C2CAA61D200309701 /* CreateTaskScreenModel.swift in Sources */,
 				8394EC2C2C5E6269009C62CD /* Router.swift in Sources */,
-				832AB9792CD7468D007E8B85 /* StringExtensions.swift in Sources */,
+				832AB9792CD7468D007E8B85 /* DateExtensions.swift in Sources */,
 				8392FE6C2CC3F0D50085D826 /* TabBarRouter.swift in Sources */,
 				83C8A7F62CEADF41005BC92A /* WipeStorageDelegate.swift in Sources */,
 				83D246EE2C84A10F009E8595 /* SettingsViewController.swift in Sources */,

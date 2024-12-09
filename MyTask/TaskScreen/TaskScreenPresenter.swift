@@ -37,7 +37,7 @@ final class TaskScreenPresenter {
         self.router = router
         
         model.onTasksUpdated = { [weak self] in
-            self?.view?.updateToDoTableView()
+            self?.view?.updateTaskTableView()
         }
         
         model.onEmptyViewToggle = { [weak self] in

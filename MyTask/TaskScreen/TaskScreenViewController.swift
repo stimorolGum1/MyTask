@@ -11,7 +11,7 @@ import SnapKit
 // MARK: - Protocol Definitions
 
 protocol TaskScreenViewControllerProtocol: AnyObject {
-    func updateToDoTableView()
+    func updateTaskTableView()
     func toggleEmptyView()
 }
 
@@ -109,7 +109,7 @@ final class TaskScreenViewController: UIViewController {
 // MARK: - Protocol Conformance
 
 extension TaskScreenViewController: TaskScreenViewControllerProtocol {
-    func updateToDoTableView() {
+    func updateTaskTableView() {
         toggleEmptyView()
         taskTableView.reloadData()
     }

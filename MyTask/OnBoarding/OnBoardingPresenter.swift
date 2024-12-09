@@ -22,19 +22,21 @@ protocol OnBoardingPresenterProtocol: AnyObject {
 final class OnBoardingPresenter {
     
     // MARK: - Properties
-
+    
     private weak var view: OnBoardingViewControllerProtocol?
     private let model: OnBoardingModel
     private var currentPageIndex = 0
     private let router: Routes
+    private let pushManager: PushManager
     typealias Routes = Closable & TabBarRoute
-
+    
     // MARK: - Initializer
-
-    init(view: OnBoardingViewControllerProtocol, model: OnBoardingModel, router: Routes) {
+    
+    init(view: OnBoardingViewControllerProtocol, model: OnBoardingModel, router: Routes, pushManager: PushManager) {
         self.view = view
         self.model = model
         self.router = router
+        self.pushManager = pushManager
     }
 }
 
@@ -45,19 +47,24 @@ extension OnBoardingPresenter: OnBoardingPresenterProtocol {
         guard let page = getCurrentPage() else { return }
         view?.display(page: page)
     }
-
+    
     func getCurrentPage() -> OnBoardingPage? {
         return model.getPage(at: currentPageIndex)
     }
-
+    
     func getCurrentPageIndex() -> Int {
         return currentPageIndex
     }
-
+    
     func getNextPage() {
         if currentPageIndex == 2 {
-            UserDefaults.standard.set(true, forKey: "isOnBoardingShown")
-            router.openTabBar()
+            UserDefaults.standard.set(true, forKey: UserDefaultsEnum.isOnBoardingShown.rawValue)
+            pushManager.requestPermission { [weak self] _ in
+                DispatchQueue.main.async {
+                    self?.router.openTabBar()
+                }
+                
+            }
         } else {
             currentPageIndex += 1
             showCurrentPage()

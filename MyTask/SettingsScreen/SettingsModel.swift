@@ -11,9 +11,9 @@ import Foundation
 
 struct SettingsModel {
     let settings = [Localization.push, Localization.storage, Localization.extras]
-    let items = [[SettingsItem(name: Localization.enableNotifications, switchIsEnabled: true)],
-                 [SettingsItem(name: Localization.wipeStorage, switchIsEnabled: false)],
-                 [SettingsItem(name: Localization.aboutApp, switchIsEnabled: false)]]
+    let items = [[SettingsItem(name: Localization.enableNotifications, switchIsEnabled: true, isSwitchEnableFor: UserDefaults.standard.bool(forKey: UserDefaultsEnum.isPushEnabled.rawValue))],
+                 [SettingsItem(name: Localization.wipeStorage, switchIsEnabled: false, isSwitchEnableFor: nil)],
+                 [SettingsItem(name: Localization.aboutApp, switchIsEnabled: false, isSwitchEnableFor: nil)]]
 }
 
 // MARK: - SettingsItem
@@ -21,4 +21,5 @@ struct SettingsModel {
 struct SettingsItem {
     let name: String
     let switchIsEnabled: Bool
+    let isSwitchEnableFor: Bool?
 }

@@ -19,11 +19,13 @@ protocol OnBoardingRoute {
 extension OnBoardingRoute where Self: Router {
     func openOnBoardingStartScreen() -> UIViewController {
         let router = DefaultRouter(rootTransition: EmptyTransition())
+        let pushManager = PushManager()
         let viewController = OnBoardingViewController()
         let model = OnBoardingModel()
         let presenter = OnBoardingPresenter(view: viewController,
                                             model: model,
-                                            router: router)
+                                            router: router,
+                                            pushManager: pushManager)
         viewController.presenter = presenter
         router.root = viewController
         return viewController

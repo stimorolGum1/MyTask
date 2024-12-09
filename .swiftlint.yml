@@ -14,3 +14,5 @@ disabled_rules:
     - trailing_whitespace
     - redundant_optional_initialization
     - for_where
+    - cyclomatic_complexity
+    - redundant_string_enum_value

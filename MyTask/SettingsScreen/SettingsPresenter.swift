@@ -12,9 +12,9 @@ import Foundation
 protocol SettingsPresenterProtocol: AnyObject {
     func numberOfSection() -> Int
     func dataOfSection(section: Int) -> String
-    func numberAtRowInSection(section: Int) -> Int 
+    func numberAtRowInSection(section: Int) -> Int
     func dataOfRowInSection(section: Int, row: Int) -> SettingsItem
-    func enablePush()
+    func controlPush(enable: Bool, completion: @escaping () -> Void)
     func wipeStorage()
     func openAboutScreen()
 }
@@ -28,14 +28,16 @@ final class SettingsPresenter {
     private weak var view: SettingsViewControllerProtocol?
     private let model: SettingsModel
     private let router: Routes
+    private let pushManager: PushManager
     typealias Routes = Closable & AboutScreenRoute
     
     // MARK: - Initializer
     
-    init(view: SettingsViewControllerProtocol?, model: SettingsModel, router: Routes) {
+    init(view: SettingsViewControllerProtocol?, model: SettingsModel, router: Routes, pushManager: PushManager) {
         self.view = view
         self.model = model
         self.router = router
+        self.pushManager = pushManager
     }
 }
 
@@ -58,8 +60,17 @@ extension SettingsPresenter: SettingsPresenterProtocol {
         return model.items[section][row]
     }
     
-    func enablePush() {
-        // in progress
+    func controlPush(enable: Bool, completion: @escaping () -> Void) {
+        if enable {
+            pushManager.requestPermission { [weak self] status in
+                DispatchQueue.main.async {
+                    self?.view?.showAlert(message: status, withCancel: false, completion: nil)
+                    completion()
+                }
+            }
+        } else {
+            pushManager.disablePermission()
+        }
     }
     
     func wipeStorage() {

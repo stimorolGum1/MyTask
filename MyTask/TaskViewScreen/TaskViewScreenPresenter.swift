@@ -32,13 +32,15 @@ final class TaskViewScreenPresenter {
     private let model: TaskViewScreenModel
     private let router: Routes
     typealias Routes = Closable
+    private let pushManager: PushManager
     
     // MARK: - Initializer
     
-    init(view: TaskViewScreenViewControllerProtocol?, model: TaskViewScreenModel, router: Routes) {
+    init(view: TaskViewScreenViewControllerProtocol?, model: TaskViewScreenModel, router: Routes, pushManager: PushManager) {
         self.view = view
         self.model = model
         self.router = router
+        self.pushManager = pushManager
     }
 }
 
@@ -54,9 +56,9 @@ extension TaskViewScreenPresenter: TaskViewScreenPresenterProtocol {
     }
     
     func deleteTask(completion: @escaping (String) -> Void) {
-        StorageManager.shared.deleteTask(id: model.taskID) { status in
+        StorageManager.shared.deleteTask(id: model.taskID) { [weak self] status in
             completion(status)
-        
+            self?.pushManager.removeFromNotification(id: self?.model.taskID ?? NSManagedObjectID())
         }
     }
     
@@ -71,8 +73,12 @@ extension TaskViewScreenPresenter: TaskViewScreenPresenterProtocol {
                                          taskDescription: taskDescription,
                                          taskName: taskName,
                                          taskPriority: taskPriority,
-                                         taskStatus: taskStatus) { status in
+                                         taskStatus: taskStatus,
+                                         completion: { status in
             completion(status)
-        }
+        },
+                                         completionForPush: { [weak self] taskName, taskDate in
+            self?.pushManager.updatePushNotification(task: taskName, dueDate: taskDate.addingTimeInterval(-60 * 60), id: self?.model.taskID ?? NSManagedObjectID())
+        })
     }
 }
