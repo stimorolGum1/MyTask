@@ -279,7 +279,7 @@ final class TaskViewScreenViewController: UIViewController {
         taskDatePicker.snp.makeConstraints { make in
             make.top.equalTo(taskDescriptionTextView.snp.bottom).offset(20)
             make.trailing.equalTo(-20)
-            make.width.equalTo(view.snp.width).dividedBy(2).offset(-30)
+            make.width.equalTo(view.snp.width).dividedBy(2)
             make.height.equalTo(40)
         }
         
@@ -293,7 +293,7 @@ final class TaskViewScreenViewController: UIViewController {
         taskPriorityButton.snp.makeConstraints { make in
             make.top.equalTo(taskDatePicker.snp.bottom).offset(20)
             make.trailing.equalTo(-20)
-            make.width.equalTo(view.snp.width).dividedBy(2).offset(-30)
+            make.width.equalTo(view.snp.width).dividedBy(2)
             make.height.equalTo(40)
         }
         
@@ -307,7 +307,7 @@ final class TaskViewScreenViewController: UIViewController {
         taskStatusButton.snp.makeConstraints { make in
             make.top.equalTo(taskPriorityLabel.snp.bottom).offset(20)
             make.trailing.equalTo(-20)
-            make.width.equalTo(view.snp.width).dividedBy(2).offset(-30)
+            make.width.equalTo(view.snp.width).dividedBy(2)
             make.height.equalTo(40)
         }
         
