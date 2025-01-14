@@ -21,10 +21,11 @@ final class PushManager {
     
     // MARK: - Request Permission for push
     
-    func requestPermission(completion: @escaping (String) -> Void) {
+    func requestPermission(completion: @escaping (String?) -> Void) {
         PushManager.center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
             if granted {
                 UserDefaults.standard.set(true, forKey: UserDefaultsEnum.isPushEnabled.rawValue)
+                completion(nil)
             } else {
                 if error == nil {
                     completion(Localization.checkPushSettings)
@@ -79,6 +80,10 @@ final class PushManager {
                 print("No scheduled notification found with ID \(identifier).")
             }
         }
+    }
+    
+    func removeAllPendingNotifications() {
+        PushManager.center.removeAllPendingNotificationRequests()
     }
 
     // MARK: - Update push by ID

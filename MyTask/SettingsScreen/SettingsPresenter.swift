@@ -31,6 +31,7 @@ final class SettingsPresenter {
     private let pushManager: PushManager
     typealias Routes = Closable & AboutScreenRoute
     
+    
     // MARK: - Initializer
     
     init(view: SettingsViewControllerProtocol?, model: SettingsModel, router: Routes, pushManager: PushManager) {
@@ -64,7 +65,7 @@ extension SettingsPresenter: SettingsPresenterProtocol {
         if enable {
             pushManager.requestPermission { [weak self] status in
                 DispatchQueue.main.async {
-                    self?.view?.showAlert(message: status, withCancel: false, completion: nil)
+                    self?.view?.showAlert(message: status!, withCancel: false, completion: nil)
                     completion()
                 }
             }
@@ -75,6 +76,7 @@ extension SettingsPresenter: SettingsPresenterProtocol {
     
     func wipeStorage() {
         StorageManager.shared.wipeStorage()
+        pushManager.removeAllPendingNotifications()
     }
     
     func openAboutScreen() {

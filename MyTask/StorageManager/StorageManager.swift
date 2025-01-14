@@ -162,7 +162,13 @@ final class StorageManager {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Tasks.fetchRequest() as! NSFetchRequest<NSFetchRequestResult>
         do {
             let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-            try context.execute(deleteRequest)
+            deleteRequest.resultType = .resultTypeObjectIDs
+            
+            let result = try context.execute(deleteRequest) as? NSBatchDeleteResult
+            if let objectIDs = result?.result as? [NSManagedObjectID] {
+                let changes = [NSDeletedObjectsKey: objectIDs]
+                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
+            }
             multicastDelegate.invoke { $0.storageWiped() }
         } catch {
             context.rollback()
